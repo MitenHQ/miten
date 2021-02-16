@@ -57,7 +57,11 @@ export default function App() {
   const handleSubmit = () => setSubmited(true);
 
   if (submited) {
-    return <Submited />;
+    return (
+      <Root>
+        <Submited />
+      </Root>
+    );
   }
 
   return (
