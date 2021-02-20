@@ -2,7 +2,7 @@ import React, { FC, useEffect, useRef } from 'react';
 
 type Props<T = any[]> = {
   data: T;
-  makeChart: (container: JSX.Element, data: T) => void;
+  makeChart: (container: SVGElement, data: T) => void;
   className?: string;
 };
 
