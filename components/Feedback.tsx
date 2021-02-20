@@ -44,7 +44,7 @@ const detailsList = [
   'Agenda',
 ];
 
-export default function App() {
+export default function Feedback() {
   const [submited, setSubmited] = useState(false);
   const [reaction, setReaction] = useState<Reactions | null>(null);
   const [subtitleAnimation, detailsFormAnimation, titleAnimation] = useAppAnimations(
