@@ -1,5 +1,9 @@
 import * as d3 from 'd3';
-export const makeStackedBarChart = (element, data) => {
+import { getEmojiFromRating } from '../getEmojiFromRating';
+
+export type Data = { name: string; category: string | number; value: number };
+
+export const makeStackedBarChart = (element: SVGElement, data: Data[]) => {
   const options = {
     format: '',
     negative: '← Answers to "What to fix?"',
@@ -15,10 +19,13 @@ export const makeStackedBarChart = (element, data) => {
     },
   };
 
-  const maxCountOfTypes = data.reduce((result, { name, value }) => {
-    result[name] = value + (result[name] ? result[name] : 0);
-    return result;
-  }, {});
+  const maxCountOfTypes: { [key: string]: number } = data.reduce(
+    (result, { name, value }) => {
+      result[name] = value + (result[name] ? result[name] : 0);
+      return result;
+    },
+    {},
+  );
   const maxCountOfAType = Math.max(...Object.values(maxCountOfTypes));
 
   const width = 800;
@@ -121,7 +128,7 @@ export const makeStackedBarChart = (element, data) => {
 
   const chart = () => {
     const svg = d3.select(element).html('').attr('viewBox', [0, 0, width, height]);
-    const emojis = ['😠', '😕', '😐', '😊', '😍'];
+
     const g = svg
       .append('g')
       .selectAll('g')
@@ -139,7 +146,7 @@ export const makeStackedBarChart = (element, data) => {
       .attr('height', y.bandwidth());
 
     g.append('text')
-      .text(({ key }) => emojis[key - 1])
+      .text(({ key }) => getEmojiFromRating(key))
       .attr('opacity', '0.4')
       .attr('x', (d) => x(d[0]) + 20)
       .attr('y', ({ data: [name] }) => y(name) + 20)
