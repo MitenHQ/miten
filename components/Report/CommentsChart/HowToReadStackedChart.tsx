@@ -19,7 +19,7 @@ const Paragraph = styled.p`
 export const HowToReadStackedChart = () => {
   const initialFocusRef = useRef(); // a hack just to not show the focus area
   return (
-    <Popover initialFocusRef={initialFocusRef} placement="right-end">
+    <Popover initialFocusRef={initialFocusRef} placement="top">
       <PopoverTrigger>
         <Button size="xs" leftIcon={<BsQuestionCircle />}>
           How to read this chart?

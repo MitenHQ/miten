@@ -12,6 +12,10 @@ export const makeBarChart = (element, data) => {
       5: '#48BB78',
     };
 
+  if (window.innerWidth < WIDTH - 100) {
+    WIDTH = window.innerWidth - 100;
+  }
+
   let x = d3.scaleBand().range([0, WIDTH]).padding(0.2);
   let y = d3.scaleLinear().range([HEIGHT, 0]);
 
