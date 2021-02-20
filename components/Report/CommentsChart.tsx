@@ -5,6 +5,7 @@ import { makeStackedBarChart } from './CommentsChart/makeStackedBarChart';
 import { getStackedChartData } from './CommentsChart/getStackedChartData';
 import { theme } from '@chakra-ui/react';
 import { HowToReadStackedChart } from './CommentsChart/HowToReadStackedChart';
+import { LimitWidth } from './LimitWidth';
 
 const Root = styled.div`
   background-color: ${theme.colors.yellow[50]};
@@ -37,9 +38,11 @@ export const CommentsChart: FC<Props> = (props) => {
 
   return (
     <Root>
-      <Title>Areas of strength and improvement</Title>
-      <StackedChart data={stackedChartData} makeChart={makeStackedBarChart} />
-      <HowToReadStackedChart />
+      <LimitWidth>
+        <Title>Areas of strength and improvement</Title>
+        <StackedChart data={stackedChartData} makeChart={makeStackedBarChart} />
+        <HowToReadStackedChart />
+      </LimitWidth>
     </Root>
   );
 };

@@ -4,9 +4,15 @@ import { MeetingInfo } from './Report/MeetingInfo';
 import { Comments } from './Report/Comments';
 import { ReactionsChart } from './Report/ReactionsChart';
 import { CommentsChart } from './Report/CommentsChart';
+import { Footer } from './Feedback/Footer';
+import { MoreDataForm } from './Report/MoreDataForm';
 
 const Root = styled.div`
   margin: auto;
+`;
+
+const FooterSection = styled(Footer)`
+  padding: 30px;
 `;
 
 export default function Report() {
@@ -18,6 +24,8 @@ export default function Report() {
       <ReactionsChart data={data} />
       <CommentsChart data={data} />
       <Comments data={data} />
+      <MoreDataForm />
+      <FooterSection />
     </Root>
   );
 }

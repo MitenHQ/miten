@@ -1,8 +1,8 @@
 import * as d3 from 'd3';
 
 export const makeBarChart = (element, data) => {
-  let HEIGHT = 300,
-    WIDTH = 500,
+  let HEIGHT = 200,
+    WIDTH = 400,
     margin = { top: 30, right: 0, bottom: 60, left: 30 },
     colors = {
       1: '#63171B',

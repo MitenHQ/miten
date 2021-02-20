@@ -4,6 +4,7 @@ import { D3Wrapper } from './D3Wrapper';
 import { makeBarChart } from './ReactionsChart/makeBarChart';
 import { getBarChartData } from './ReactionsChart/getBarChartData';
 import { theme } from '@chakra-ui/react';
+import { LimitWidth } from './LimitWidth';
 
 const Root = styled.div`
   background-color: ${theme.colors.purple[50]};
@@ -25,10 +26,12 @@ export const ReactionsChart: FC<Props> = (props) => {
 
   return (
     <Root>
-      <Title>
-        Responses to <i>"How was the meeting experience?"</i>
-      </Title>
-      <D3Wrapper data={data} makeChart={makeBarChart} />
+      <LimitWidth>
+        <Title>
+          Responses to <i>"How was the meeting experience?"</i>
+        </Title>
+        <D3Wrapper data={data} makeChart={makeBarChart} />
+      </LimitWidth>
     </Root>
   );
 };

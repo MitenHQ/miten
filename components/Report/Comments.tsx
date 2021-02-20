@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { getEmojiFromRating } from './getEmojiFromRating';
 import { theme } from '@chakra-ui/react';
+import { LimitWidth } from './LimitWidth';
 
 const Root = styled.div`
   background-color: ${theme.colors.pink[50]};
@@ -44,15 +45,17 @@ export const Comments: FC<Props> = (props) => {
   if (data.length === 0) return <div>No furthur comments</div>;
   return (
     <Root>
-      <Title>Written comments</Title>
-      <Container>
-        {data.map(({ rating, comment }, i: number) => (
-          <Comment key={i}>
-            <Emoji>{getEmojiFromRating(rating)}</Emoji>
-            <Text>{comment}</Text>
-          </Comment>
-        ))}
-      </Container>
+      <LimitWidth>
+        <Title>Written comments</Title>
+        <Container>
+          {data.map(({ rating, comment }, i: number) => (
+            <Comment key={i}>
+              <Emoji>{getEmojiFromRating(rating)}</Emoji>
+              <Text>{comment}</Text>
+            </Comment>
+          ))}
+        </Container>
+      </LimitWidth>
     </Root>
   );
 };
