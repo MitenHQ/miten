@@ -14,12 +14,13 @@ import {
   theme,
   useDisclosure,
 } from '@chakra-ui/react';
+import { FocusableElement } from '@chakra-ui/utils';
 import styled from 'styled-components';
 import { HiOutlineLightBulb } from 'react-icons/hi';
 import { LimitWidth } from './LimitWidth';
 
 const Root = styled.div`
-  background-color: ${theme.colors.blue[50]};
+  background-color: ${(theme as any).colors.blue[50]};
   padding: 50px 30px;
 `;
 
@@ -35,7 +36,7 @@ export const MoreDataForm: FC = () => {
     hideThanks();
   }, [isOpen, hideThanks]);
 
-  const initialRef = useRef();
+  const initialRef = useRef<FocusableElement>(null);
 
   return (
     <Root>
@@ -57,7 +58,7 @@ export const MoreDataForm: FC = () => {
                     Please explain what representation of the data you need to be shown in
                     the reports page
                   </FormLabel>
-                  <Textarea ref={initialRef} />
+                  <Textarea ref={initialRef as any} />
                 </FormControl>
               </ModalBody>
               <ModalFooter>

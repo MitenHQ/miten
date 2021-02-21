@@ -5,12 +5,12 @@ import { theme } from '@chakra-ui/react';
 import { LimitWidth } from './LimitWidth';
 
 const Root = styled.div`
-  background-color: ${theme.colors.pink[50]};
+  background-color: ${(theme as any).colors.pink[50]};
   padding: 30px 30px;
 `;
 
 const Title = styled.h3`
-  color: ${theme.colors.pink[800]};
+  color: ${(theme as any).colors.pink[800]};
   font-size: 20px;
   margin-bottom: 10px;
 `;
@@ -41,14 +41,14 @@ type Props = {
 };
 
 export const Comments: FC<Props> = (props) => {
-  const data = props.data.filter((item) => !!item.comment);
+  const data = props.data.filter((item: any) => !!item.comment);
   if (data.length === 0) return <div>No furthur comments</div>;
   return (
     <Root>
       <LimitWidth>
         <Title>Written comments</Title>
         <Container>
-          {data.map(({ rating, comment }, i: number) => (
+          {data.map(({ rating, comment }: any, i: number) => (
             <Comment key={i}>
               <Emoji>{getEmojiFromRating(rating)}</Emoji>
               <Text>{comment}</Text>

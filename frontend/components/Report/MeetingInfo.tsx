@@ -4,19 +4,19 @@ import { theme } from '@chakra-ui/react';
 import { LimitWidth } from './LimitWidth';
 
 const Root = styled.div`
-  background-color: ${theme.colors.green[50]};
+  background-color: ${(theme as any).colors.green[50]};
   padding: 50px 30px;
 `;
 
 const Title = styled.h1`
   font-size: 28px;
   font-weight: 500;
-  color: ${theme.colors.green[900]};
+  color: ${(theme as any).colors.green[900]};
 `;
 
 const SubTitle = styled.div`
   font-size: 16px;
-  color: ${theme.colors.green[800]};
+  color: ${(theme as any).colors.green[800]};
 `;
 
 type Props = {

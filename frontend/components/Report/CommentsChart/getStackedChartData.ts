@@ -1,7 +1,9 @@
-export const getStackedChartData = (data) =>
-  data.reduce((result, { rating, items }) => {
-    return items.reduce((res, item) => {
-      const foundIndex = res.findIndex((r) => r.name === item && r.category === rating);
+export const getStackedChartData = (data: any) =>
+  data.reduce((result: any, { rating, items }: any) => {
+    return items.reduce((res: any, item: any) => {
+      const foundIndex = res.findIndex(
+        (r: any) => r.name === item && r.category === rating,
+      );
 
       if (foundIndex !== -1) {
         res[foundIndex].value++;

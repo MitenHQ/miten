@@ -8,7 +8,9 @@
     "build": "next build",
     "next-start": "next start",
     "watch-graphql": "graphql-codegen --watch '../backend/src/**/*.gql' --watch 'components/**/*.ts' --watch 'components/**/*.tsx' --watch 'components/**/*.gql'",
-    "generate-types": "graphql-codegen"
+    "generate-types": "graphql-codegen",
+    "start:prod": "next start",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",

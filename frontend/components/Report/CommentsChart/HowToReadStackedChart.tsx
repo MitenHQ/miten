@@ -8,6 +8,8 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from '@chakra-ui/react';
+import { FocusableElement } from '@chakra-ui/utils';
+
 import React, { FC, useRef } from 'react';
 import styled from 'styled-components';
 import { BsQuestionCircle } from 'react-icons/bs';
@@ -17,7 +19,7 @@ const Paragraph = styled.p`
 `;
 
 export const HowToReadStackedChart: FC = () => {
-  const initialFocusRef = useRef(); // a hack just to not show the focus area
+  const initialFocusRef = useRef<FocusableElement>(null); // a hack just to not show the focus area
   return (
     <Popover initialFocusRef={initialFocusRef} placement="top">
       <PopoverTrigger>
@@ -30,7 +32,7 @@ export const HowToReadStackedChart: FC = () => {
         <PopoverCloseButton />
         <PopoverHeader>Comments Stacked Bar Chart</PopoverHeader>
         <PopoverBody>
-          <Paragraph ref={initialFocusRef}>
+          <Paragraph ref={initialFocusRef as any}>
             The more each part grown on the left side, means more people answered the
             question of &quot;What to fix&quot; with that answer.
           </Paragraph>

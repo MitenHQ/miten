@@ -36,7 +36,7 @@ export const ReactionsForm: FC<Props> = ({ reaction, selectReaction }) => {
         animation={horribleAnimation}
         tabIndex={
           // To disable focus when it's not showing
-          reaction === null || reaction === Reactions.HORRIBLE ? null : -1
+          reaction === null || reaction === Reactions.HORRIBLE ? (null as any) : -1
         }
       ></AnimatedEmojiButton>
       <AnimatedEmojiButton
@@ -44,28 +44,30 @@ export const ReactionsForm: FC<Props> = ({ reaction, selectReaction }) => {
         emoji="😕"
         label="Bad"
         animation={badAnimation}
-        tabIndex={reaction === null || reaction === Reactions.BAD ? null : -1}
+        tabIndex={reaction === null || reaction === Reactions.BAD ? (null as any) : -1}
       ></AnimatedEmojiButton>
       <AnimatedEmojiButton
         onClick={selectReaction(Reactions.MEH)}
         emoji="😐"
         label="Meh"
         animation={mehAnimation}
-        tabIndex={reaction === null || reaction === Reactions.MEH ? null : -1}
+        tabIndex={reaction === null || reaction === Reactions.MEH ? (null as any) : -1}
       ></AnimatedEmojiButton>
       <AnimatedEmojiButton
         onClick={selectReaction(Reactions.GOOD)}
         emoji="😊"
         label="Good"
         animation={goodAnimation}
-        tabIndex={reaction === null || reaction === Reactions.GOOD ? null : -1}
+        tabIndex={reaction === null || reaction === Reactions.GOOD ? (null as any) : -1}
       ></AnimatedEmojiButton>
       <AnimatedEmojiButton
         onClick={selectReaction(Reactions.AWESOME)}
         emoji="😍"
         label="Awesome"
         animation={awesomeAnimation}
-        tabIndex={reaction === null || reaction === Reactions.AWESOME ? null : -1}
+        tabIndex={
+          reaction === null || reaction === Reactions.AWESOME ? (null as any) : -1
+        }
       ></AnimatedEmojiButton>
     </Root>
   );

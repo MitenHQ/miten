@@ -7,12 +7,12 @@ import { theme } from '@chakra-ui/react';
 import { LimitWidth } from './LimitWidth';
 
 const Root = styled.div`
-  background-color: ${theme.colors.purple[50]};
+  background-color: ${(theme as any).colors.purple[50]};
   padding: 30px 30px;
 `;
 
 const Title = styled.h3`
-  color: ${theme.colors.purple[800]};
+  color: ${(theme as any).colors.purple[800]};
   font-size: 20px;
   margin-bottom: 10px;
 `;

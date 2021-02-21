@@ -7,7 +7,7 @@ type Props<T = any[]> = {
 };
 
 export const D3Wrapper: FC<Props> = (props) => {
-  const d3Container = useRef(null);
+  const d3Container = useRef<SVGSVGElement>(null);
   useEffect(() => {
     if (props.data && d3Container.current) {
       props.makeChart(d3Container.current, props.data);

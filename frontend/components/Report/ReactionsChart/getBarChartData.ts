@@ -6,8 +6,8 @@ const ratings = [
   { rating: 5, name: '😍', value: 0 },
 ];
 
-export const getBarChartData = (data) =>
-  data.reduce((result, item) => {
+export const getBarChartData = (data: any) =>
+  data.reduce((result: any, item: any) => {
     result[item.rating - 1].value = result[item.rating - 1].value + 1;
     return result;
   }, ratings);
