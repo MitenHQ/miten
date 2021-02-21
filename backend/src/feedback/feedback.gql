@@ -1,0 +1,24 @@
+input GenerateLink {
+  email: String!
+  title: String
+}
+
+type Link {
+  id: Int
+  title: String
+  link: String
+  reportLink: String
+}
+
+type Report {
+  title: String
+  createdAt: String
+}
+
+type Query {
+  report(uid: String): Report
+}
+
+type Mutation {
+  generateLink(data: GenerateLink!): Link
+}
