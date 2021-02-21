@@ -1,0 +1,8 @@
+mutation generateLink($data: GenerateLink!) {
+  generateLink(data: $data) {
+    id
+    title
+    link
+    reportLink
+  }
+}
