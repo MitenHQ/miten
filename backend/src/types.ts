@@ -5,7 +5,7 @@ import { User } from '@prisma/client';
 export type UserWithoutPassword = Omit<User, 'password'>;
 
 export interface ExpressRequest extends Request {
-  user?: UserWithoutPassword;
+  user?: Partial<UserWithoutPassword>;
 }
 
 export interface ApolloExpressContext extends ExpressContext {
