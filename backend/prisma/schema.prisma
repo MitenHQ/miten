@@ -1,0 +1,67 @@
+// learn more about prisma schema in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model FeedbackBase {
+  id               Int                @id @default(autoincrement())
+  title            String
+  uid              String
+  user             User               @relation(fields: [userId], references: [id])
+  userId           Int                @unique
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @default(now()) @updatedAt
+  FeedbackResponse FeedbackResponse[]
+}
+
+model FeedbackResponse {
+  id             Int          @id @default(autoincrement())
+  rating         Int
+  items          String[]
+  comment        String
+  feedbackBase   FeedbackBase @relation(fields: [feedbackBaseId], references: [id])
+  feedbackBaseId Int          @unique
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now()) @updatedAt
+}
+
+model User {
+  id            Int            @id @default(autoincrement())
+  email         String         @unique
+  name          String?
+  password      String?
+  feedbackBases FeedbackBase[]
+  permissions   String[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @default(now()) @updatedAt
+  Token         Token[]
+}
+
+enum TOKEN_TYPES {
+  RESET_PASSWORD
+}
+
+model Token {
+  id        Int         @id @default(autoincrement())
+  user      User        @relation(fields: [email], references: [email])
+  email     String
+  token     String
+  type      TOKEN_TYPES
+  resolved  Boolean     @default(false)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now()) @updatedAt
+}
+
+model LoginFailedAttempt {
+  id        Int      @id @default(autoincrement())
+  email     String
+  resolved  Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
