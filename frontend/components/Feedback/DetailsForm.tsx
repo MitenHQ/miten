@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { ButtonCheckbox } from './DetailsForm/ButtonCheckbox';
 import { Reactions } from './constants';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 
 const Label = styled.div`
   font-size: 16px;
@@ -37,7 +36,6 @@ export const DetailsForm: FC<Props> = ({ items, reaction, setReaction, onSubmit 
   const submit = (values: FormValues) => {
     const formValues = { ...values, reaction };
     console.log(formValues);
-    axios.post('/api/review', {formValues})
 
     onSubmit();
     // alert(JSON.stringify(formValues));
