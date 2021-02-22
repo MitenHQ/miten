@@ -1,5 +1,5 @@
 module.exports = {
   env: {
-    apiUrl: 'http://api.docker.localhost/graphql/',
+    apiUrl: process.env.API_URL,
   },
 };
