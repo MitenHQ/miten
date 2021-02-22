@@ -37,8 +37,9 @@ export const DetailsForm: FC<Props> = ({ items, reaction, setReaction, onSubmit 
   const submit = (values: FormValues) => {
     const formValues = { ...values, reaction };
     console.log(formValues);
-    axios.post('/api/review', {formValues})
-
+    axios.post('/api/review', {formValues}).then(d => {
+      console.log('done', d);
+    })
     onSubmit();
     // alert(JSON.stringify(formValues));
   };
