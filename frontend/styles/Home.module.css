@@ -54,7 +54,15 @@
   color: teal;
 }
 
+.subtitle {
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 1rem;
+  color: teal;
+}
+
 .title,
+.subtitle,
 .description {
   text-align: center;
 }

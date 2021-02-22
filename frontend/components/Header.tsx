@@ -9,7 +9,19 @@ const Root = styled.header`
   flex-flow: column nowrap;
   justify-content: space-between;
   width: 320px;
-  height: 240px;
+  height: 480px;
+`;
+
+const LinkContainer = styled.section`
+  display: flex;
+  flex-flow: column nowrap;
+  width: 320px;
+  height: 200px;
+  color: teal;
+  text-align: center;
+  & span {
+    font-size: 0.6rem;
+  }
 `;
 
 const Header: FC = () => {
@@ -19,11 +31,26 @@ const Header: FC = () => {
   console.log(data, error);
 
   const [email, setEmail] = useState('');
+  const [isFeedBackLinkCopied, setIsFeedBackLinkCopied] = useState(false);
+  const [isReportLinkCopied, setIsReportLinkCopied] = useState(false);
+
   const handleChangeEmail = (event: any) => {
     setEmail(event.target.value);
   };
   const handleClickGenerate = () => {
     generateLink({ variables: { data: { email } } });
+  };
+
+  const handleCopyLink = (e: any) => {
+    e.target.select();
+    document.execCommand('copy');
+    if (e.target.name === 'feedbackLinkInput') {
+      setIsFeedBackLinkCopied(true);
+      setIsReportLinkCopied(false);
+    } else {
+      setIsReportLinkCopied(true);
+      setIsFeedBackLinkCopied(false);
+    }
   };
 
   return (
@@ -38,6 +65,28 @@ const Header: FC = () => {
       >
         Generate a Link!
       </Button>
+      <LinkContainer>
+        {data && (
+          <>
+            <h2 className={styles.subtitle}>Feedback Link</h2>
+            <span>{isFeedBackLinkCopied ? 'COPIED :)' : 'CLICK LINK TO COPY'}</span>
+            <Input
+              name="feedbackLinkInput"
+              onClick={handleCopyLink}
+              value={data.generateLink?.link ?? ''}
+              onChange={() => null}
+            />
+            <h2 className={styles.subtitle}>Get Reports</h2>
+            <span>{isReportLinkCopied ? 'COPIED :)' : 'CLICK LINK TO COPY'}</span>
+            <Input
+              name="reportLinkInput"
+              onClick={handleCopyLink}
+              value={data.generateLink?.reportLink ?? ''}
+              onChange={() => null}
+            />
+          </>
+        )}
+      </LinkContainer>
     </Root>
   );
 };
