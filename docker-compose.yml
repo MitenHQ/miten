@@ -14,12 +14,14 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: admin # This will be in secrets in a real proaduction compose file
-      POSTGRES_PASSWORD: example # This will be in secrets in a real proaduction compose file
+      POSTGRES_USER: admin # This will be in secrets in a real proaduction
+      POSTGRES_PASSWORD: example # This will be in secrets in a real proaduction
+    # ports:
+    #   - 5432:5432
     volumes:
       - postgresdata:/var/lib/postgresql/data
 
-  # Un comment this to get access to the database on http://adminer.docker.localhost
+  # Un comment this to get access to the database UI (adminer) on http://adminer.docker.localhost
   # adminer:
   #   image: adminer
   #   restart: always
@@ -37,8 +39,8 @@ services:
       - ALLOW_ORIGIN=http://docker.localhost
       - CLIENT_ADDRESS=http://docker.localhost
       - NODE_ENV=production
-      - JWT_SECRET="JWT_DARK_SECRET" # This will be in secrets in a real proaduction compose file
-      - DATABASE_URL="postgresql://admin:example@localhost:5432/miten?schema=public" # This will be in secrets in a real proaduction compose file
+      - JWT_SECRET="JWT_DARK_SECRET" # This will be in secrets in a real proaduction
+      - DATABASE_URL="postgresql://admin:example@localhost:5432/miten?schema=public" # This will be in secrets in a real proaduction
 
     labels:
       - 'traefik.http.routers.api.rule=Host(`api.docker.localhost`)'
