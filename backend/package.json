@@ -11,7 +11,8 @@
     "generate-types": "graphql-codegen",
     "configure-db": "npx prisma migrate dev --preview-feature",
     "pretest": "npm run configure-db",
-    "test": "jest --env=node --watch --runInBand"
+    "test": "jest --env=node --watch --runInBand",
+    "start:prod": "ts-node ./src/server.ts"
   },
   "dependencies": {
     "@graphql-tools/load-files": "^6.2.5",

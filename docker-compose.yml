@@ -1,0 +1,68 @@
+### ATTENTION: THIS IS NOT A PRODUCTION COMPOSE FILE ###
+# This compose file runs production environment on your local machine
+# Security features (like SSL and database secrets) are disabled
+# UI is server on: http://docker.localhost
+
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: example
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+  #   labels:
+  #     - 'traefik.http.routers.adminer.rule=Host(`adminer.docker.localhost`)'
+
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: ./backend
+    volumes:
+      - ./backend:/usr/src/app
+    depends_on:
+      - db
+    labels:
+      - 'traefik.http.routers.api.rule=Host(`api.docker.localhost`)'
+
+  ui:
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    # volumes:
+    #   - ./frontend:/usr/src/app
+    depends_on:
+      - api
+      - db
+    labels:
+      - 'traefik.http.routers.ui.rule=Host(`docker.localhost`)'
+
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:v2.4
+    # Enables the web UI and tells Traefik to listen to docker
+    command: --api.insecure=true --providers.docker
+    ports:
+      # The HTTP port
+      - '80:80'
+      # The Web UI (enabled by --api.insecure=true)
+      - '8081:8080'
+    depends_on:
+      - api
+      - db
+      - ui
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  postgresdata:
