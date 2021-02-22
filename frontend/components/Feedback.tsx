@@ -36,7 +36,7 @@ const SubTitle = styled(animated.div)`
 const detailsList = [
   'Duration',
   'Content',
-  'Slides',
+  'Speakers',
   'Tone',
   'Speed',
   'Audience',
