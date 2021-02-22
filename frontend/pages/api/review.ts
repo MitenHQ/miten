@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 
 type Data = {
-  name: string
+  result: string
 }
 
 export default (req: NextApiRequest, res: NextApiResponse<Data>) => {
@@ -18,7 +18,7 @@ export default (req: NextApiRequest, res: NextApiResponse<Data>) => {
 };
 
 axios.request(options as any).then(function (response) {
-  console.log('post done');
+  res.status(200).json({ result: 'success' })
 }).catch(function (error) {
   console.error('error');
 });
@@ -26,6 +26,5 @@ axios.request(options as any).then(function (response) {
   }
 
 
-  res.status(200).json({ name: 'John Doe' })
 }
 
