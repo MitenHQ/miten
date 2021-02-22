@@ -72,14 +72,16 @@ const Feedback: FC = () => {
           Your feedback helps the organizer to improve the future meetings.
         </SubTitle>
         <ReactionsForm reaction={reaction} selectReaction={selectReaction} />
-        <animated.div style={detailsFormAnimation}>
-          <DetailsForm
-            items={detailsList}
-            reaction={reaction}
-            setReaction={setReaction}
-            onSubmit={handleSubmit}
-          />
-        </animated.div>
+        {reaction && (
+          <animated.div style={detailsFormAnimation}>
+            <DetailsForm
+              items={detailsList}
+              reaction={reaction}
+              setReaction={setReaction}
+              onSubmit={handleSubmit}
+            />
+          </animated.div>
+        )}
       </Container>
       <Footer />
     </Root>
