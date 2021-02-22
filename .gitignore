@@ -1,5 +1,7 @@
 binary
 .DS_Store
+.vscode
+frontend/.next
 
 # Logs
 logs
