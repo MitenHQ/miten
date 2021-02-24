@@ -8,6 +8,7 @@ import { useAppAnimations } from './Feedback/useAppAnimations';
 import { Submited } from './Feedback/Submited';
 import { Footer } from './Feedback/Footer';
 import { theme } from '@chakra-ui/react';
+import { getBackgroundByReaction } from './Feedback/getBackgroundByReaction';
 
 const Root = styled.div`
   height: 100%;
@@ -36,6 +37,8 @@ const SubTitle = styled(animated.div)`
 
 const ReactionsFormWrapper = styled.div`
   background: linear-gradient(to left, #c6ffdd99, #fbd78669, #f7797da6);
+  transition: 300ms background;
+  will-change: background;
 `;
 
 const DetailsFormWrapper = styled(animated.div)`
@@ -72,7 +75,7 @@ const Feedback: FC = () => {
   return (
     <Root>
       <Container>
-        <ReactionsFormWrapper>
+        <ReactionsFormWrapper style={{ background: getBackgroundByReaction(reaction) }}>
           <Title>How was the meeting?</Title>
           <ReactionsForm reaction={reaction} selectReaction={selectReaction} />
         </ReactionsFormWrapper>
