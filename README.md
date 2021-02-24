@@ -10,7 +10,7 @@ Improve your meetings by getting feedback
 
 (This will change, but for now:)
 
-First install the packages:
+First install the packages and init the environment variables:
 
 ```
 npm i
