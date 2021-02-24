@@ -72,7 +72,6 @@ const Feedback: FC = () => {
           Your feedback helps the organizer to improve the future meetings.
         </SubTitle>
         <ReactionsForm reaction={reaction} selectReaction={selectReaction} />
-        {reaction && (
           <animated.div style={detailsFormAnimation}>
             <DetailsForm
               items={detailsList}
@@ -81,7 +80,6 @@ const Feedback: FC = () => {
               onSubmit={handleSubmit}
             />
           </animated.div>
-        )}
       </Container>
       <Footer />
     </Root>
