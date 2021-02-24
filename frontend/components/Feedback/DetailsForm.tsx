@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import { Button, Textarea } from '@chakra-ui/react';
+import { Button, Textarea, theme } from '@chakra-ui/react';
 import { BiRocket, BiTrash } from 'react-icons/bi';
 import styled from 'styled-components';
 import { ButtonCheckbox } from './DetailsForm/ButtonCheckbox';
 import { Reactions } from './constants';
 import { useForm } from 'react-hook-form';
+import { getTitle } from './getTitle';
 
 const Label = styled.div`
   font-size: 16px;
@@ -20,6 +21,13 @@ const ButtonContainer = styled.div`
   padding: 6px;
 `;
 
+const Title = styled.h1`
+  margin: 20px 0 20px 0;
+  font-size: 22px;
+  color: ${(theme as any).colors.blue[700]};
+  font-weight: 500;
+`;
+
 type FormValues = {
   comment: string;
 } & { [key in string]: boolean }; // keys are items
@@ -33,20 +41,21 @@ type Props = {
 
 export const DetailsForm: FC<Props> = ({ items, reaction, setReaction, onSubmit }) => {
   const { handleSubmit, register, reset } = useForm<FormValues>();
-  const submit = (values: FormValues) => {
+  const submit = (values: FormValues): void => {
     const formValues = { ...values, reaction };
     console.log(formValues);
 
     onSubmit();
     // alert(JSON.stringify(formValues));
   };
-  const handleReset = () => {
+  const handleReset = (): void => {
     setReaction(null);
     reset();
   };
 
   return (
     <form onSubmit={handleSubmit(submit)}>
+      <Title>{getTitle(reaction)}</Title>
       {items.map((label) => (
         <ButtonCheckbox key={label} name={label} label={label} ref={register()} />
       ))}

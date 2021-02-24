@@ -1,6 +1,5 @@
 import { Reactions } from './constants';
 
-const initialTitle = 'How was the meeting?';
 const titles = {
   [Reactions.HORRIBLE]: 'Sorry! What went wrong?',
   [Reactions.BAD]: 'Sorry! What to fix?',
@@ -9,5 +8,5 @@ const titles = {
   [Reactions.AWESOME]: 'Great! What was good?',
 };
 
-export const getTitle = (reaction: Reactions | null) =>
-  reaction ? titles[reaction] : initialTitle;
+export const getTitle = (reaction: Reactions | null): string | null =>
+  reaction && titles[reaction];

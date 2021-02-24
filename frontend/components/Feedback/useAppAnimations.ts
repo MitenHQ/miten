@@ -25,7 +25,7 @@ export const useAppAnimations = (reaction: Reactions | null) => {
           opacity: 0,
           transform: 'translate(0,0)',
           from: { display: 'none', opacity: 0, transform: 'translate(0,0)' },
-          to: { display: 'block', opacity: 1, transform: 'translate(0,-100px)' },
+          to: { display: 'block', opacity: 1, transform: 'translate(0,0)' },
         }
       : {
           display: 'none',
@@ -34,23 +34,11 @@ export const useAppAnimations = (reaction: Reactions | null) => {
           from: {
             display: 'block',
             opacity: 1,
-            transform: 'translate(0,-100px)',
+            transform: 'translate(0,0)',
           },
           to: { display: 'none', opacity: 0, transform: 'translate(0,0)' },
         },
   );
 
-  const titleAnimation = useSpring(
-    reaction
-      ? {
-          from: { transform: 'translate(0,0)' },
-          to: { transform: 'translate(0,70px)' },
-        }
-      : {
-          from: { transform: 'translate(0,70px)' },
-          to: { transform: 'translate(0,0)' },
-        },
-  );
-
-  return [subtitleAnimation, detailsFormAnimation, titleAnimation];
+  return [subtitleAnimation, detailsFormAnimation];
 };

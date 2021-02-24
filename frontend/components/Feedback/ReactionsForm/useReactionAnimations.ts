@@ -12,25 +12,27 @@ const useReactionAnimation = (
     currentReaction
       ? {
           opacity: 1,
-          from: { opacity: 1 },
-          to: { opacity: 0 },
+          transform: 'scale(1)',
+          from: { opacity: 1, transform: 'scale(1)' },
+          to: { opacity: 0, transform: 'scale(0.8)' },
         }
       : {
           opacity: 0,
-          from: { opacity: 0 },
-          to: { opacity: 1 },
+          transform: 'scale(0.8)',
+          from: { opacity: 0, transform: 'scale(0.8)' },
+          to: { opacity: 1, transform: 'scale(1)' },
         },
   );
 
   const moveAnimation = useSpring(
     currentReaction
       ? {
-          from: { transform: 'translate(0,0)' },
-          to: { transform: `translate(${offsetMoveX}px,-120px)` },
+          from: { transform: 'translateX(0)' },
+          to: { transform: `translateX(${offsetMoveX}px)` },
         }
       : {
-          from: { transform: `translate(${offsetMoveX}px,-120px)` },
-          to: { transform: 'translate(0,0)' },
+          from: { transform: `translateX(${offsetMoveX}px)` },
+          to: { transform: 'translateX(0)' },
         },
   );
 
