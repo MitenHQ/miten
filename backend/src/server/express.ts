@@ -9,7 +9,7 @@ import { expressAddUserToRequest } from './expressAddUserToRequest';
 export const startExpress = (): void => {
   const app = express();
 
-  // allow local frontend to send requests
+  // allow frontend to send requests
   if (process.env.ALLOW_ORIGIN || process.env.NODE_ENV !== 'production') {
     app.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', process.env.ALLOW_ORIGIN || '*');
