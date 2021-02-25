@@ -20,12 +20,10 @@ export type GenerateLink = {
   title?: Maybe<Scalars['String']>;
 };
 
-export type Link = {
-  __typename?: 'Link';
-  id?: Maybe<Scalars['Int']>;
-  title?: Maybe<Scalars['String']>;
-  link?: Maybe<Scalars['String']>;
-  reportLink?: Maybe<Scalars['String']>;
+export type Response = {
+  __typename?: 'Response';
+  success: Scalars['Boolean'];
+  message?: Maybe<Scalars['String']>;
 };
 
 export type Report = {
@@ -50,7 +48,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<User>;
   forgotPassword?: Maybe<AuthResult>;
-  generateLink?: Maybe<Link>;
+  generateLink?: Maybe<Response>;
   login?: Maybe<AuthResult>;
   register?: Maybe<AuthResult>;
   resetPassword?: Maybe<AuthResult>;
@@ -147,17 +145,15 @@ export type GenerateLinkMutationVariables = Exact<{
 
 export type GenerateLinkMutation = { __typename?: 'Mutation' } & {
   generateLink?: Maybe<
-    { __typename?: 'Link' } & Pick<Link, 'id' | 'title' | 'link' | 'reportLink'>
+    { __typename?: 'Response' } & Pick<Response, 'success' | 'message'>
   >;
 };
 
 export const GenerateLinkDocument = gql`
   mutation generateLink($data: GenerateLink!) {
     generateLink(data: $data) {
-      id
-      title
-      link
-      reportLink
+      success
+      message
     }
   }
 `;

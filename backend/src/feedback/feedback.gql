@@ -3,13 +3,10 @@ input GenerateLink {
   title: String
 }
 
-type Link {
-  id: Int
-  title: String
-  link: String
-  reportLink: String
+type Response {
+  success: Boolean!
+  message: String
 }
-
 type Report {
   title: String
   createdAt: String
@@ -20,5 +17,5 @@ type Query {
 }
 
 type Mutation {
-  generateLink(data: GenerateLink!): Link
+  generateLink(data: GenerateLink!): Response
 }

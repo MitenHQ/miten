@@ -22,12 +22,10 @@ export type GenerateLink = {
   title?: Maybe<Scalars['String']>;
 };
 
-export type Link = {
-  __typename?: 'Link';
-  id?: Maybe<Scalars['Int']>;
-  title?: Maybe<Scalars['String']>;
-  link?: Maybe<Scalars['String']>;
-  reportLink?: Maybe<Scalars['String']>;
+export type Response = {
+  __typename?: 'Response';
+  success: Scalars['Boolean'];
+  message?: Maybe<Scalars['String']>;
 };
 
 export type Report = {
@@ -52,7 +50,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<User>;
   forgotPassword?: Maybe<AuthResult>;
-  generateLink?: Maybe<Link>;
+  generateLink?: Maybe<Response>;
   login?: Maybe<AuthResult>;
   register?: Maybe<AuthResult>;
   resetPassword?: Maybe<AuthResult>;
@@ -246,13 +244,14 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   GenerateLink: GenerateLink;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Link: ResolverTypeWrapper<Link>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
+  Response: ResolverTypeWrapper<Response>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Report: ResolverTypeWrapper<Report>;
   Query: ResolverTypeWrapper<{}>;
   Mutation: ResolverTypeWrapper<{}>;
   UserInput: UserInput;
   AdminUserInput: AdminUserInput;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   CredentialsInput: CredentialsInput;
   EmailInput: EmailInput;
   NewPasswordInput: NewPasswordInput;
@@ -260,37 +259,34 @@ export type ResolversTypes = ResolversObject<{
   SocialLoginInput: SocialLoginInput;
   User: ResolverTypeWrapper<User>;
   AuthResult: ResolverTypeWrapper<AuthResult>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   GenerateLink: GenerateLink;
   String: Scalars['String'];
-  Link: Link;
-  Int: Scalars['Int'];
+  Response: Response;
+  Boolean: Scalars['Boolean'];
   Report: Report;
   Query: {};
   Mutation: {};
   UserInput: UserInput;
   AdminUserInput: AdminUserInput;
+  Int: Scalars['Int'];
   CredentialsInput: CredentialsInput;
   EmailInput: EmailInput;
   NewPasswordInput: NewPasswordInput;
   SocialLoginInput: SocialLoginInput;
   User: User;
   AuthResult: AuthResult;
-  Boolean: Scalars['Boolean'];
 }>;
 
-export type LinkResolvers<
+export type ResponseResolvers<
   ContextType = ApolloContext,
-  ParentType extends ResolversParentTypes['Link'] = ResolversParentTypes['Link']
+  ParentType extends ResolversParentTypes['Response'] = ResolversParentTypes['Response']
 > = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  link?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  reportLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -335,7 +331,7 @@ export type MutationResolvers<
     RequireFields<MutationForgotPasswordArgs, 'credentials'>
   >;
   generateLink?: Resolver<
-    Maybe<ResolversTypes['Link']>,
+    Maybe<ResolversTypes['Response']>,
     ParentType,
     ContextType,
     RequireFields<MutationGenerateLinkArgs, 'data'>
@@ -398,7 +394,7 @@ export type AuthResultResolvers<
 }>;
 
 export type Resolvers<ContextType = ApolloContext> = ResolversObject<{
-  Link?: LinkResolvers<ContextType>;
+  Response?: ResponseResolvers<ContextType>;
   Report?: ReportResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
