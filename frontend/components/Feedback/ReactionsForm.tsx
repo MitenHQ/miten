@@ -10,7 +10,7 @@ const Root = styled.div`
   grid-gap: 3px;
   justify-items: center;
   align-items: center;
-  margin: 30px 0;
+  margin: 20px 0;
 `;
 
 type Props = {

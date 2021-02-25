@@ -4,10 +4,11 @@ import { animated } from 'react-spring';
 import { Reactions } from './Feedback/constants';
 import { ReactionsForm } from './Feedback/ReactionsForm';
 import { DetailsForm } from './Feedback/DetailsForm';
-import { getTitle } from './Feedback/getTitle';
 import { useAppAnimations } from './Feedback/useAppAnimations';
 import { Submited } from './Feedback/Submited';
 import { Footer } from './Feedback/Footer';
+import { theme } from '@chakra-ui/react';
+import { getBackgroundByReaction } from './Feedback/getBackgroundByReaction';
 
 const Root = styled.div`
   height: 100%;
@@ -18,19 +19,32 @@ const Root = styled.div`
 `;
 
 const Container = styled.div`
-  max-width: 400px;
+  width: 100%;
 `;
 
-const Title = styled(animated.h1)`
-  margin: 50px 0 30px 0;
+const Title = styled.h1`
+  padding: 40px 0 20px 0;
   font-size: 28px;
-  color: #111;
+  color: ${(theme as any).colors.pink[900]};
   font-weight: 500;
 `;
 
 const SubTitle = styled(animated.div)`
   font-size: 16px;
   color: #555;
+  padding: 20px 10px 0 10px;
+`;
+
+const ReactionsFormWrapper = styled.div`
+  background: linear-gradient(to left, #c6ffdd99, #fbd78669, #f7797da6);
+  transition: 300ms background;
+  will-change: background;
+`;
+
+const DetailsFormWrapper = styled(animated.div)`
+  max-width: 400px;
+  margin: auto;
+  padding-bottom: 20px;
 `;
 
 const detailsList = [
@@ -47,9 +61,7 @@ const detailsList = [
 const Feedback: FC = () => {
   const [submited, setSubmited] = useState(false);
   const [reaction, setReaction] = useState<Reactions | null>(null);
-  const [subtitleAnimation, detailsFormAnimation, titleAnimation] = useAppAnimations(
-    reaction,
-  );
+  const [subtitleAnimation, detailsFormAnimation] = useAppAnimations(reaction);
 
   const selectReaction = (r: Reactions) => () =>
     reaction ? setReaction(null) : setReaction(r);
@@ -57,29 +69,29 @@ const Feedback: FC = () => {
   const handleSubmit = (): void => setSubmited(true);
 
   if (submited) {
-    return (
-      <Root>
-        <Submited />
-      </Root>
-    );
+    return <Submited />;
   }
 
   return (
     <Root>
       <Container>
-        <Title style={titleAnimation}>{getTitle(reaction)}</Title>
+        <ReactionsFormWrapper style={{ background: getBackgroundByReaction(reaction) }}>
+          <Title>How was the meeting?</Title>
+          <ReactionsForm reaction={reaction} selectReaction={selectReaction} />
+        </ReactionsFormWrapper>
         <SubTitle style={subtitleAnimation}>
           Your feedback helps the organizer to improve the future meetings.
         </SubTitle>
-        <ReactionsForm reaction={reaction} selectReaction={selectReaction} />
-          <animated.div style={detailsFormAnimation}>
+        {reaction && (
+          <DetailsFormWrapper style={detailsFormAnimation}>
             <DetailsForm
               items={detailsList}
               reaction={reaction}
               setReaction={setReaction}
               onSubmit={handleSubmit}
             />
-          </animated.div>
+          </DetailsFormWrapper>
+        )}
       </Container>
       <Footer />
     </Root>
