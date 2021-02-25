@@ -1,7 +1,7 @@
 import { User } from '@prisma/client';
 import { AuthServices } from '../graphql/resolvers-types';
 
-export type UserContent = Pick<User, 'email' | 'name'>;
+export type UserContent = Pick<User, 'email'>;
 
 type GoogleClientId = string;
 export type GoogleJWTDecoded = {
