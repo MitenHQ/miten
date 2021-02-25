@@ -8,7 +8,7 @@ export const generateLink: MutationResolvers['generateLink'] = async (parent, {d
 
   const response = await prisma.feedbackBase.create(
     {data:
-      {uid: uniqueId, user: {connect:{id:user.id}}}
+      {uid: uniqueId(), user: {connect:{id:user.id}}}
     }
   )
   return {
