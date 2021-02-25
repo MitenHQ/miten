@@ -34,19 +34,17 @@ const Header: FC = () => {
   };
 
   const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    if(!email) return;
-    generateLink({ variables: { data: { email } } });
+    event.preventDefault(); if(!email) return; generateLink({ variables: { data: { email } } });
   }
 
   return (
     <Root>
       <Container>
-      <Heading as="h1" size="md">Get your meeting feedback form in 10 seconds!</Heading>
+      <Heading as="h1" size="md" mb="7">Get a feedback form link!</Heading>
       <form onSubmit={handleSubmit}>
      <FormControl id="email">
        <SimpleGrid spacing="10px">
-      <FormLabel>Your email</FormLabel>
+      <FormLabel mb="0">Your email</FormLabel>
       <Input type="email" value={email} onChange={handleChangeEmail} />
       <Button
         type="submit"
