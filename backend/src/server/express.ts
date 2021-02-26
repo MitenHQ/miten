@@ -5,12 +5,13 @@ import { getApolloServer } from '../graphql/graphqlServer';
 import { apolloContext } from './apolloContext';
 import { JWT_ALGORITHM, JWT_SECRET } from '../utils/constants';
 import { expressAddUserToRequest } from './expressAddUserToRequest';
+import { isProductionEnv } from '../utils/envTools';
 
 export const startExpress = (): void => {
   const app = express();
 
   // allow frontend to send requests
-  if (process.env.ALLOW_ORIGIN || process.env.NODE_ENV !== 'production') {
+  if (process.env.ALLOW_ORIGIN || !isProductionEnv()) {
     app.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', process.env.ALLOW_ORIGIN || '*');
       res.header(
@@ -38,7 +39,7 @@ export const startExpress = (): void => {
   // some level of http security
   app.use(
     helmet({
-      contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false,
+      contentSecurityPolicy: isProductionEnv() ? undefined : false,
     }),
   );
 

@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client';
 import { difference, intersection } from 'lodash';
 import { MutationResolvers } from '../graphql/resolvers-types';
-import { isDevEnv } from '../utils/isDevEnv';
+import { isDevEnv } from '../utils/envTools';
 import { allPermissions } from './permissions/allPermissions';
 import { userFields } from './utils/constants';
 
