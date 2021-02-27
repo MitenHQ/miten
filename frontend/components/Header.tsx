@@ -1,4 +1,4 @@
-import React, { useState, FC, FormEvent } from 'react';
+import React, { FC } from 'react';
 import { useGenerateLinkMutation } from '../lib/graphql/hooks';
 import {
   Button,
@@ -11,6 +11,9 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react';
 import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
+import { emailRegex } from './utils/constants';
+import { getMessage } from './Header/getMessage';
 
 const Root = styled.header`
   display: flex;
@@ -30,20 +33,18 @@ const MessageContainer = styled.section`
   }
 `;
 
+type FormValues = {
+  email: string;
+};
+
 const Header: FC = () => {
+  const { handleSubmit, register } = useForm<FormValues>();
+
   const [generateLink, { loading, data, error }] = useGenerateLinkMutation({
     errorPolicy: 'all',
   });
 
-  const [email, setEmail] = useState('');
-
-  const handleChangeEmail = (event: any) => {
-    setEmail(event.target.value);
-  };
-
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    if (!email) return;
+  const submit = ({ email }: FormValues): void => {
     generateLink({ variables: { data: { email } } });
   };
 
@@ -53,11 +54,21 @@ const Header: FC = () => {
         <Heading as="h1" size="md" mb="7">
           Get a feedback form link!
         </Heading>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(submit)}>
           <FormControl id="email">
             <SimpleGrid spacing="10px">
               <FormLabel mb="0">Your email</FormLabel>
-              <Input type="email" value={email} onChange={handleChangeEmail} />
+              <Input
+                type="email"
+                name="email"
+                ref={register({
+                  required: 'Email is required to register',
+                  pattern: {
+                    message: 'Email is not entered correctly',
+                    value: emailRegex,
+                  },
+                })}
+              />
               <Button
                 type="submit"
                 isLoading={loading}
@@ -71,7 +82,7 @@ const Header: FC = () => {
           </FormControl>
         </form>
         <MessageContainer>
-          {data ? <span>The related links has been sent to your email.</span> : error}
+          <span>{getMessage(data, error)}</span>
         </MessageContainer>
       </Container>
     </Root>
