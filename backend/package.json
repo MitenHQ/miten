@@ -4,13 +4,13 @@
   "description": "Miten backend",
   "main": "./src/server.ts",
   "scripts": {
-    "prestart": "npm run configure-db",
+    "prestart": "npm run configure-db && prisma generate",
     "start": "concurrently --handle-input npm:watch-node npm:watch-graphql",
     "watch-node": "ts-node-dev --rs --exit-child ./src/server.ts",
     "watch-graphql": "graphql-codegen --watch 'src/**/*.gql'",
     "generate-types": "graphql-codegen",
     "configure-db": "npx prisma migrate dev --preview-feature",
-    "pretest": "npm run configure-db",
+    "pretest": "npm run configure-db && prisma generate",
     "test": "jest --env=node --watch --runInBand",
     "start:prod": "npm run prestart && prisma generate && ts-node ./src/server.ts"
   },
