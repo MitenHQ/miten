@@ -3,14 +3,14 @@ import mail from '@sendgrid/mail';
 import { MutationResolvers } from '../graphql/resolvers-types';
 import { getOrMakeUser } from '../user/getOrMakeUser';
 import { EMAIL_SENDER, FEEDBACK_TEMPLATE_ID, REPLY_TO } from '../utils/constants';
-import { isDevEnv } from '../utils/envTools';
+import { isDevEnv, isTestEnv } from '../utils/envTools';
 import { feedbackUniqueId } from './utils/feedbackUniqueId';
 import { getRecentTime } from '../utils/getRecentTime';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
 
-const DAY = 24 * 60; // a day is 24h * 60min
-const GENERATE_LINK_DAY_LIMIT = 3;
-const GENERATE_LINK_IP_DAY_LIMIT = 10;
+export const DAY = 24 * 60; // a day is 24h * 60min
+export const GENERATE_LINK_DAY_LIMIT = 3;
+export const GENERATE_LINK_IP_DAY_LIMIT = 10;
 
 // limit using generateLink from a single ip
 const userIPrateLimiter = new RateLimiterMemory({
@@ -24,10 +24,12 @@ export const generateLink: MutationResolvers['generateLink'] = async (
   { data: { email } },
   { prisma, ip },
 ) => {
-  try {
-    await userIPrateLimiter.consume(ip);
-  } catch (error) {
-    return { success: false, message: 'Too many requests' };
+  if (!isTestEnv()) {
+    try {
+      await userIPrateLimiter.consume(ip);
+    } catch (error) {
+      return { success: false, message: 'Too many requests' };
+    }
   }
 
   try {
