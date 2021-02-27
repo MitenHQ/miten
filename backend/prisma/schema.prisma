@@ -12,9 +12,10 @@ generator client {
 model FeedbackBase {
   id               Int                @id @default(autoincrement())
   title            String?
-  uid              String             @unique
+  feedbackUid      String             @unique
+  reportUid        String             @unique
   user             User               @relation(fields: [userId], references: [id])
-  userId           Int 
+  userId           Int
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @default(now()) @updatedAt
   FeedbackResponse FeedbackResponse[]
