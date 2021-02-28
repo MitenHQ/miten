@@ -5,7 +5,7 @@ import { login as loginResolver } from './login';
 const login = resolverHelper(loginResolver);
 
 describe('login', () => {
-  const user = { email: 'test@test.test', name: 'Test', password: 'testtest' };
+  const user = { email: 'test@example.com', name: 'Test', password: 'testtest' };
   beforeEach(async () => {
     // make user to test
     const data = await hashUserPassword(user);
@@ -13,7 +13,7 @@ describe('login', () => {
 
     // make another test user, just to be sure nothing is mixed up
     const anotherUser = {
-      email: 'anothertest@test.test',
+      email: 'anothertest@example.com',
       name: 'Some Test',
       password: 'tsetest',
     };
@@ -27,7 +27,7 @@ describe('login', () => {
 
   it('returns successful result and a token when right credentials used', async () => {
     const result = await login({
-      credentials: { email: 'test@test.test', password: 'testtest' },
+      credentials: { email: 'test@example.com', password: 'testtest' },
     });
 
     expect(result?.success).toEqual(true);
@@ -36,7 +36,7 @@ describe('login', () => {
 
   it('returns failed result without token when bad credentials used', async () => {
     const result = await login({
-      credentials: { email: 'test@test.test', password: 'testbad' },
+      credentials: { email: 'test@example.com', password: 'testbad' },
     });
 
     expect(result?.success).toEqual(false);
@@ -44,7 +44,7 @@ describe('login', () => {
   });
 
   it('does not allow login even with right credentials if login failed too many times', async () => {
-    const credentials = { email: 'test@test.test', password: 'testbad' };
+    const credentials = { email: 'test@example.com', password: 'testbad' };
     // bad credentials
     await login({ credentials });
     await login({ credentials });
@@ -57,7 +57,7 @@ describe('login', () => {
   });
 
   it('allows login attempts, after a successful login even after a couple of login failures', async () => {
-    const credentials = { email: 'test@test.test', password: 'testbad' };
+    const credentials = { email: 'test@example.com', password: 'testbad' };
     // bad credentials
     await login({ credentials });
     await login({ credentials });

@@ -1,14 +1,28 @@
 import express from 'express';
 import helmet from 'helmet';
 import expressJwt from 'express-jwt';
+import slowDown from 'express-slow-down';
 import { getApolloServer } from '../graphql/graphqlServer';
 import { apolloContext } from './apolloContext';
 import { JWT_ALGORITHM, JWT_SECRET } from '../utils/constants';
 import { expressAddUserToRequest } from './expressAddUserToRequest';
 import { isProductionEnv } from '../utils/envTools';
 
+const requestSpeedLimiter = slowDown({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  delayAfter: 30, // allow 30 requests to go at full-speed, then...
+  delayMs: 10, // 31th request has a 10ms delay, 32th has a 20ms delay, 33th gets 30ms, etc.
+});
+
 export const startExpress = (): void => {
   const app = express();
+
+  if (isProductionEnv()) {
+    // Our production server is behind a reverse proxy
+    app.enable('trust proxy');
+    // slow down the requests from a single ip
+    app.use(requestSpeedLimiter);
+  }
 
   // allow frontend to send requests
   if (process.env.ALLOW_ORIGIN || !isProductionEnv()) {

@@ -4,7 +4,7 @@ import { register as registerResolver } from './register';
 const register = resolverHelper(registerResolver);
 
 describe('register', () => {
-  const user = { email: 'test@test.test', name: 'Test', password: 'testtest' };
+  const user = { email: 'test@example.com', name: 'Test', password: 'testtest' };
   afterEach(async () => {
     await prisma.user.deleteMany();
     await prisma.loginFailedAttempt.deleteMany();

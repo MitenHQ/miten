@@ -11,7 +11,7 @@ describe('hashUserPassword', () => {
   });
 
   it("doesn't change data when it doesn't have password field", async () => {
-    const user: { email: string; password?: string } = { email: 'test@test.test' };
+    const user: { email: string; password?: string } = { email: 'test@example.com' };
     const sameUser = await hashUserPassword(user);
 
     expect(sameUser).toEqual(user);

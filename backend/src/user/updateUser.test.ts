@@ -9,7 +9,7 @@ const updateUser = resolverHelper(updateUserResolver);
 
 describe('updateUser', () => {
   const user = {
-    email: 'test@test.test',
+    email: 'test@example.com',
     name: 'Test',
     password: 'testtest',
     permissions: [],
@@ -33,7 +33,7 @@ describe('updateUser', () => {
     const updateValues = {
       id: normalUser.id,
       name: 'Changed',
-      email: 'changed@test.test',
+      email: 'changed@example.com',
       permissions: [allPermissions[0]],
     };
     const result = await updateUser({ user: updateValues }, adminUser);
