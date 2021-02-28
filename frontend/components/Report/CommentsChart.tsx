@@ -6,6 +6,7 @@ import { getStackedChartData } from './CommentsChart/getStackedChartData';
 import { theme } from '@chakra-ui/react';
 import { HowToReadStackedChart } from './CommentsChart/HowToReadStackedChart';
 import { LimitWidth } from './LimitWidth';
+import { ChartFeedbackResponse } from './types';
 
 const Root = styled.div`
   background-color: ${(theme as any).colors.yellow[50]};
@@ -30,7 +31,7 @@ const StackedChart = styled(D3Wrapper)`
 `;
 
 type Props = {
-  data: any;
+  data: ChartFeedbackResponse[];
 };
 
 export const CommentsChart: FC<Props> = (props) => {

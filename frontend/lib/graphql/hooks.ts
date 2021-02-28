@@ -13,6 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  DateTime: any;
 };
 
 export type GenerateLink = {
@@ -26,22 +27,39 @@ export type Response = {
   message?: Maybe<Scalars['String']>;
 };
 
-export type Report = {
-  __typename?: 'Report';
+export type FeedbackResponse = {
+  __typename?: 'FeedbackResponse';
+  id: Scalars['ID'];
+  rating: Scalars['Int'];
+  items?: Maybe<Array<Maybe<Scalars['String']>>>;
+  comment?: Maybe<Scalars['String']>;
+  feedbackBase?: Maybe<FeedbackBase>;
+  feedbackBaseId?: Maybe<Scalars['Int']>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type FeedbackBase = {
+  __typename?: 'FeedbackBase';
+  id: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
-  createdAt?: Maybe<Scalars['String']>;
+  feedbackUid: Scalars['String'];
+  reportUid: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  feedbackResponse: Array<FeedbackResponse>;
 };
 
 export type Query = {
   __typename?: 'Query';
   getAllPermissions: Array<Scalars['String']>;
-  report?: Maybe<Report>;
+  report?: Maybe<FeedbackBase>;
   user?: Maybe<User>;
   users?: Maybe<Array<Maybe<User>>>;
 };
 
 export type QueryReportArgs = {
-  uid?: Maybe<Scalars['String']>;
+  reportUid: Scalars['String'];
 };
 
 export type Mutation = {
@@ -139,6 +157,26 @@ export type AuthResult = {
   message?: Maybe<Scalars['String']>;
 };
 
+export type GetReportQueryVariables = Exact<{
+  reportUid: Scalars['String'];
+}>;
+
+export type GetReportQuery = { __typename?: 'Query' } & {
+  report?: Maybe<
+    { __typename?: 'FeedbackBase' } & Pick<
+      FeedbackBase,
+      'id' | 'title' | 'feedbackUid' | 'reportUid' | 'createdAt' | 'updatedAt'
+    > & {
+        feedbackResponse: Array<
+          { __typename?: 'FeedbackResponse' } & Pick<
+            FeedbackResponse,
+            'id' | 'rating' | 'items' | 'comment'
+          >
+        >;
+      }
+  >;
+};
+
 export type GenerateLinkMutationVariables = Exact<{
   data: GenerateLink;
 }>;
@@ -149,6 +187,63 @@ export type GenerateLinkMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
+export const GetReportDocument = gql`
+  query getReport($reportUid: String!) {
+    report(reportUid: $reportUid) {
+      id
+      title
+      feedbackUid
+      reportUid
+      createdAt
+      updatedAt
+      feedbackResponse {
+        id
+        rating
+        items
+        comment
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetReportQuery__
+ *
+ * To run a query within a React component, call `useGetReportQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetReportQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetReportQuery({
+ *   variables: {
+ *      reportUid: // value for 'reportUid'
+ *   },
+ * });
+ */
+export function useGetReportQuery(
+  baseOptions: Apollo.QueryHookOptions<GetReportQuery, GetReportQueryVariables>,
+) {
+  return Apollo.useQuery<GetReportQuery, GetReportQueryVariables>(
+    GetReportDocument,
+    baseOptions,
+  );
+}
+export function useGetReportLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetReportQuery, GetReportQueryVariables>,
+) {
+  return Apollo.useLazyQuery<GetReportQuery, GetReportQueryVariables>(
+    GetReportDocument,
+    baseOptions,
+  );
+}
+export type GetReportQueryHookResult = ReturnType<typeof useGetReportQuery>;
+export type GetReportLazyQueryHookResult = ReturnType<typeof useGetReportLazyQuery>;
+export type GetReportQueryResult = Apollo.QueryResult<
+  GetReportQuery,
+  GetReportQueryVariables
+>;
 export const GenerateLinkDocument = gql`
   mutation generateLink($data: GenerateLink!) {
     generateLink(data: $data) {

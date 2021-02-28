@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { theme } from '@chakra-ui/react';
 import { LimitWidth } from './LimitWidth';
+import { format } from 'date-fns';
 
 const Root = styled.div`
   background-color: ${(theme as any).colors.green[50]};
@@ -28,7 +29,9 @@ export const MeetingInfo: FC<Props> = (props) => (
   <Root>
     <LimitWidth>
       <Title>{props.title} Report</Title>
-      <SubTitle>{props.date}</SubTitle>
+      <SubTitle>
+        Created at {format(new Date(props.date), 'dd MMM. yyyy - HH:mm')}
+      </SubTitle>
     </LimitWidth>
   </Root>
 );

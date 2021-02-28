@@ -29,6 +29,7 @@
     "express-jwt": "^6.0.0",
     "express-slow-down": "^1.4.0",
     "graphql": "^15.4.0",
+    "graphql-scalars": "^1.8.0",
     "graphql-tools": "^7.0.2",
     "helmet": "^4.2.0",
     "jsonwebtoken": "^8.5.1",
