@@ -1,6 +1,6 @@
 import { difference } from 'lodash';
 import { UserWithoutPassword } from '../../types';
-import { isDevEnv } from '../../utils/isDevEnv';
+import { isDevEnv } from '../../utils/envTools';
 
 export const checkMissingPermissions = (
   user: Partial<UserWithoutPassword> | undefined,
