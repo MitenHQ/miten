@@ -78,10 +78,7 @@ export const generateLink: MutationResolvers['generateLink'] = async (
       await mail.send(msg);
     }
 
-    return {
-      // TODO add error handling
-      success: true,
-    };
+    return { success: true };
   } catch (error) {
     console.log('error in generateLink', error);
     return {

@@ -24,7 +24,7 @@ describe('generateLink', () => {
   });
 
   it('creates a user and a link and sends it to the mail address', async () => {
-    const email = 'test@test.test';
+    const email = 'test@example.com';
     const result = await generateLink({ data: { email } });
     const userRows = await prisma.user.findMany({});
     expect(userRows.length).toEqual(1);
@@ -55,7 +55,7 @@ describe('generateLink', () => {
   });
 
   it('does not generate more than limit for a single mail address', async () => {
-    const email = 'test@test.test';
+    const email = 'test@example.com';
     for (let index = 0; index < GENERATE_LINK_DAY_LIMIT; index++) {
       await generateLink({ data: { email } });
     }
@@ -63,7 +63,7 @@ describe('generateLink', () => {
     const result = await generateLink({ data: { email } });
 
     expect(result?.success).toEqual(false);
-    const anotherResult = await generateLink({ data: { email: 'another@test.test' } });
+    const anotherResult = await generateLink({ data: { email: 'another@example.com' } });
     expect(anotherResult?.success).toEqual(true);
   });
 });

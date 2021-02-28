@@ -16,7 +16,7 @@ describe('createTokenFromUser', () => {
   it('does not include extra fields', () => {
     const token = createTokenFromUser({
       id: 1,
-      email: 'test@test.test',
+      email: 'test@example.com',
       name: 'Test',
       password: '123456',
     });
