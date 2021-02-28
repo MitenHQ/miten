@@ -31,7 +31,7 @@ export type Response = {
 
 export type FeedbackResponse = {
   __typename?: 'FeedbackResponse';
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   rating: Scalars['Int'];
   items?: Maybe<Array<Maybe<Scalars['String']>>>;
   comment?: Maybe<Scalars['String']>;
@@ -43,13 +43,13 @@ export type FeedbackResponse = {
 
 export type FeedbackBase = {
   __typename?: 'FeedbackBase';
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   title?: Maybe<Scalars['String']>;
   feedbackUid: Scalars['String'];
   reportUid: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  feedbackResponse: Array<FeedbackResponse>;
+  feedbackResponses: Array<FeedbackResponse>;
 };
 
 export type Query = {
@@ -265,7 +265,6 @@ export type ResolversTypes = ResolversObject<{
   Response: ResolverTypeWrapper<Response>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   FeedbackResponse: ResolverTypeWrapper<FeedbackResponse>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   FeedbackBase: ResolverTypeWrapper<FeedbackBase>;
   Query: ResolverTypeWrapper<{}>;
@@ -289,7 +288,6 @@ export type ResolversParentTypes = ResolversObject<{
   Response: Response;
   Boolean: Scalars['Boolean'];
   FeedbackResponse: FeedbackResponse;
-  ID: Scalars['ID'];
   Int: Scalars['Int'];
   FeedbackBase: FeedbackBase;
   Query: {};
@@ -318,7 +316,7 @@ export type FeedbackResponseResolvers<
   ContextType = ApolloContext,
   ParentType extends ResolversParentTypes['FeedbackResponse'] = ResolversParentTypes['FeedbackResponse']
 > = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   rating?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   items?: Resolver<
     Maybe<Array<Maybe<ResolversTypes['String']>>>,
@@ -337,13 +335,13 @@ export type FeedbackBaseResolvers<
   ContextType = ApolloContext,
   ParentType extends ResolversParentTypes['FeedbackBase'] = ResolversParentTypes['FeedbackBase']
 > = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   feedbackUid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   reportUid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  feedbackResponse?: Resolver<
+  feedbackResponses?: Resolver<
     Array<ResolversTypes['FeedbackResponse']>,
     ParentType,
     ContextType

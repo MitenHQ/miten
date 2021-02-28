@@ -4,7 +4,7 @@
   "description": "Miten backend",
   "main": "./src/server.ts",
   "scripts": {
-    "prestart": "npm run configure-db",
+    "prestart": "npm run configure-db && prisma generate",
     "start": "concurrently --handle-input npm:watch-node npm:watch-graphql",
     "watch-node": "ts-node-dev --rs --exit-child ./src/server.ts",
     "watch-graphql": "graphql-codegen --watch 'src/**/*.gql'",

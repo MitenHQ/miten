@@ -29,7 +29,7 @@ export type Response = {
 
 export type FeedbackResponse = {
   __typename?: 'FeedbackResponse';
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   rating: Scalars['Int'];
   items?: Maybe<Array<Maybe<Scalars['String']>>>;
   comment?: Maybe<Scalars['String']>;
@@ -41,13 +41,13 @@ export type FeedbackResponse = {
 
 export type FeedbackBase = {
   __typename?: 'FeedbackBase';
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   title?: Maybe<Scalars['String']>;
   feedbackUid: Scalars['String'];
   reportUid: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  feedbackResponse: Array<FeedbackResponse>;
+  feedbackResponses: Array<FeedbackResponse>;
 };
 
 export type Query = {
@@ -167,7 +167,7 @@ export type GetReportQuery = { __typename?: 'Query' } & {
       FeedbackBase,
       'id' | 'title' | 'feedbackUid' | 'reportUid' | 'createdAt' | 'updatedAt'
     > & {
-        feedbackResponse: Array<
+        feedbackResponses: Array<
           { __typename?: 'FeedbackResponse' } & Pick<
             FeedbackResponse,
             'id' | 'rating' | 'items' | 'comment'
@@ -196,7 +196,7 @@ export const GetReportDocument = gql`
       reportUid
       createdAt
       updatedAt
-      feedbackResponse {
+      feedbackResponses {
         id
         rating
         items

@@ -14,7 +14,7 @@ type Response {
 }
 
 type FeedbackResponse {
-  id: ID!
+  id: Int!
   rating: Int!
   items: [String]
   comment: String
@@ -25,13 +25,13 @@ type FeedbackResponse {
 }
 
 type FeedbackBase {
-  id: ID!
+  id: Int!
   title: String
   feedbackUid: String!
   reportUid: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  feedbackResponse: [FeedbackResponse!]!
+  feedbackResponses: [FeedbackResponse!]!
 }
 
 type Query {

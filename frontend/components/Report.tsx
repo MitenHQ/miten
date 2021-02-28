@@ -26,7 +26,7 @@ const Report: FC = () => {
   if (loading) return <Root>Loading</Root>;
   if (!data?.report) return <Root>404: Wrong link</Root>;
 
-  const responses = data.report.feedbackResponse;
+  const responses = data.report.feedbackResponses;
 
   return (
     <Root>

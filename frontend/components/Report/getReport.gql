@@ -6,7 +6,7 @@ query getReport($reportUid: String!) {
     reportUid
     createdAt
     updatedAt
-    feedbackResponse {
+    feedbackResponses {
       id
       rating
       items
