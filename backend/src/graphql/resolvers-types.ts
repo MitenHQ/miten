@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { ApolloContext } from '../server/apolloContext';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -15,6 +15,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  DateTime: any;
 };
 
 export type GenerateLink = {
@@ -28,22 +29,41 @@ export type Response = {
   message?: Maybe<Scalars['String']>;
 };
 
-export type Report = {
-  __typename?: 'Report';
+export type FeedbackResponse = {
+  __typename?: 'FeedbackResponse';
+  id: Scalars['Int'];
+  rating: Scalars['Int'];
+  items?: Maybe<Array<Maybe<Scalars['String']>>>;
+  comment?: Maybe<Scalars['String']>;
+  feedbackBase?: Maybe<FeedbackBase>;
+  feedbackBaseId?: Maybe<Scalars['Int']>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type FeedbackBase = {
+  __typename?: 'FeedbackBase';
+  id: Scalars['Int'];
   title?: Maybe<Scalars['String']>;
-  createdAt?: Maybe<Scalars['String']>;
+  feedbackUid: Scalars['String'];
+  reportUid: Scalars['String'];
+  feedbackLink: Scalars['String'];
+  reportLink: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  feedbackResponses: Array<FeedbackResponse>;
 };
 
 export type Query = {
   __typename?: 'Query';
   getAllPermissions: Array<Scalars['String']>;
-  report?: Maybe<Report>;
+  report?: Maybe<FeedbackBase>;
   user?: Maybe<User>;
   users?: Maybe<Array<Maybe<User>>>;
 };
 
 export type QueryReportArgs = {
-  uid?: Maybe<Scalars['String']>;
+  reportUid: Scalars['String'];
 };
 
 export type Mutation = {
@@ -246,12 +266,14 @@ export type ResolversTypes = ResolversObject<{
   String: ResolverTypeWrapper<Scalars['String']>;
   Response: ResolverTypeWrapper<Response>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  Report: ResolverTypeWrapper<Report>;
+  FeedbackResponse: ResolverTypeWrapper<FeedbackResponse>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  FeedbackBase: ResolverTypeWrapper<FeedbackBase>;
   Query: ResolverTypeWrapper<{}>;
   Mutation: ResolverTypeWrapper<{}>;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   UserInput: UserInput;
   AdminUserInput: AdminUserInput;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   CredentialsInput: CredentialsInput;
   EmailInput: EmailInput;
   NewPasswordInput: NewPasswordInput;
@@ -267,12 +289,14 @@ export type ResolversParentTypes = ResolversObject<{
   String: Scalars['String'];
   Response: Response;
   Boolean: Scalars['Boolean'];
-  Report: Report;
+  FeedbackResponse: FeedbackResponse;
+  Int: Scalars['Int'];
+  FeedbackBase: FeedbackBase;
   Query: {};
   Mutation: {};
+  DateTime: Scalars['DateTime'];
   UserInput: UserInput;
   AdminUserInput: AdminUserInput;
-  Int: Scalars['Int'];
   CredentialsInput: CredentialsInput;
   EmailInput: EmailInput;
   NewPasswordInput: NewPasswordInput;
@@ -290,12 +314,42 @@ export type ResponseResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ReportResolvers<
+export type FeedbackResponseResolvers<
   ContextType = ApolloContext,
-  ParentType extends ResolversParentTypes['Report'] = ResolversParentTypes['Report']
+  ParentType extends ResolversParentTypes['FeedbackResponse'] = ResolversParentTypes['FeedbackResponse']
 > = ResolversObject<{
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  rating?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  items?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['String']>>>,
+    ParentType,
+    ContextType
+  >;
+  comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  feedbackBase?: Resolver<Maybe<ResolversTypes['FeedbackBase']>, ParentType, ContextType>;
+  feedbackBaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type FeedbackBaseResolvers<
+  ContextType = ApolloContext,
+  ParentType extends ResolversParentTypes['FeedbackBase'] = ResolversParentTypes['FeedbackBase']
+> = ResolversObject<{
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  feedbackUid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  reportUid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  feedbackLink?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  reportLink?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  feedbackResponses?: Resolver<
+    Array<ResolversTypes['FeedbackResponse']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -305,10 +359,10 @@ export type QueryResolvers<
 > = ResolversObject<{
   getAllPermissions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   report?: Resolver<
-    Maybe<ResolversTypes['Report']>,
+    Maybe<ResolversTypes['FeedbackBase']>,
     ParentType,
     ContextType,
-    RequireFields<QueryReportArgs, never>
+    RequireFields<QueryReportArgs, 'reportUid'>
   >;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
@@ -368,6 +422,11 @@ export type MutationResolvers<
   >;
 }>;
 
+export interface DateTimeScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime';
+}
+
 export type UserResolvers<
   ContextType = ApolloContext,
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
@@ -395,9 +454,11 @@ export type AuthResultResolvers<
 
 export type Resolvers<ContextType = ApolloContext> = ResolversObject<{
   Response?: ResponseResolvers<ContextType>;
-  Report?: ReportResolvers<ContextType>;
+  FeedbackResponse?: FeedbackResponseResolvers<ContextType>;
+  FeedbackBase?: FeedbackBaseResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  DateTime?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
   AuthResult?: AuthResultResolvers<ContextType>;
 }>;

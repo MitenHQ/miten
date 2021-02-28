@@ -12,13 +12,32 @@ type Response {
   success: Boolean!
   message: String
 }
-type Report {
+
+type FeedbackResponse {
+  id: Int!
+  rating: Int!
+  items: [String]
+  comment: String
+  feedbackBase: FeedbackBase
+  feedbackBaseId: Int
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type FeedbackBase {
+  id: Int!
   title: String
-  createdAt: String
+  feedbackUid: String!
+  reportUid: String!
+  feedbackLink: String!
+  reportLink: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  feedbackResponses: [FeedbackResponse!]!
 }
 
 type Query {
-  report(uid: String): Report
+  report(reportUid: String!): FeedbackBase
 }
 
 type Mutation {

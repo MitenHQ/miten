@@ -6,6 +6,7 @@ import {
 } from './generateLink';
 import mail from '@sendgrid/mail';
 import { EMAIL_SENDER, FEEDBACK_TEMPLATE_ID, REPLY_TO } from '../utils/constants';
+import { makeFeedbackLink, makeReportLink } from './utils/makeLinks';
 
 const generateLink = resolverHelper(generateLinkResolver);
 jest.mock('@sendgrid/mail');
@@ -42,8 +43,8 @@ describe('generateLink', () => {
     expect(mail.send).toBeCalledTimes(1);
     expect(mail.send).toBeCalledWith({
       dynamicTemplateData: {
-        feedback: process.env.CLIENT_ADDRESS + '/feedback/xxx-yyy-zzzz0',
-        report: process.env.CLIENT_ADDRESS + '/report/SOMELONGRANDOMTEXT0',
+        feedback: makeFeedbackLink('xxx-yyy-zzzz0'),
+        report: makeReportLink('SOMELONGRANDOMTEXT0'),
       },
       from: { email: EMAIL_SENDER, name: 'Miten.io' },
       reply_to: REPLY_TO,

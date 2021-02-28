@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { getEmojiFromRating } from './getEmojiFromRating';
 import { theme } from '@chakra-ui/react';
 import { LimitWidth } from './LimitWidth';
+import { FeedbackResponse } from '../../lib/graphql/hooks';
 
 const Root = styled.div`
   background-color: ${(theme as any).colors.pink[50]};
@@ -37,18 +38,25 @@ const Text = styled.span`
 `;
 
 type Props = {
-  data: any;
+  data: Pick<FeedbackResponse, 'comment' | 'rating'>[];
 };
 
 export const Comments: FC<Props> = (props) => {
-  const data = props.data.filter((item: any) => !!item.comment);
-  if (data.length === 0) return <div>No furthur comments</div>;
+  const data = props.data.filter(({ comment }) => !!comment);
+  if (data.length === 0)
+    return (
+      <Root>
+        <LimitWidth>
+          <Title>No furthur comments</Title>
+        </LimitWidth>
+      </Root>
+    );
   return (
     <Root>
       <LimitWidth>
         <Title>Written comments</Title>
         <Container>
-          {data.map(({ rating, comment }: any, i: number) => (
+          {data.map(({ rating, comment }, i: number) => (
             <Comment key={i}>
               <Emoji>{getEmojiFromRating(rating)}</Emoji>
               <Text>{comment}</Text>

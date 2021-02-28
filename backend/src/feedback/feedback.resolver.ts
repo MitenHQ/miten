@@ -1,9 +1,10 @@
 import { Resolvers } from '../graphql/resolvers-types';
 import { generateLink } from './generateLink';
+import { report } from './report';
 
 const resolver: Resolvers = {
   Query: {
-    report: () => ({ title: 'Sample', date: 'Feb. 23rd 2021' }),
+    report,
   },
   Mutation: {
     generateLink,

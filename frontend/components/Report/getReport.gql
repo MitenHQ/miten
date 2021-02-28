@@ -1,0 +1,15 @@
+query getReport($reportUid: String!) {
+  report(reportUid: $reportUid) {
+    id
+    title
+    feedbackLink
+    createdAt
+    updatedAt
+    feedbackResponses {
+      id
+      rating
+      items
+      comment
+    }
+  }
+}

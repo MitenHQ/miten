@@ -5,6 +5,7 @@ import { makeBarChart } from './ReactionsChart/makeBarChart';
 import { getBarChartData } from './ReactionsChart/getBarChartData';
 import { theme } from '@chakra-ui/react';
 import { LimitWidth } from './LimitWidth';
+import { ChartFeedbackResponse } from './types';
 
 const Root = styled.div`
   background-color: ${(theme as any).colors.purple[50]};
@@ -18,7 +19,7 @@ const Title = styled.h3`
 `;
 
 type Props = {
-  data: any;
+  data: ChartFeedbackResponse[];
 };
 
 export const ReactionsChart: FC<Props> = (props) => {

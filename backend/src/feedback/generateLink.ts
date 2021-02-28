@@ -7,6 +7,7 @@ import { isDevEnv, isTestEnv } from '../utils/envTools';
 import { feedbackUniqueId } from './utils/feedbackUniqueId';
 import { getRecentTime } from '../utils/getRecentTime';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
+import { makeFeedbackLink, makeReportLink } from './utils/makeLinks';
 
 export const DAY = 24 * 60; // a day is 24h * 60min
 export const GENERATE_LINK_DAY_LIMIT = 3;
@@ -67,8 +68,8 @@ export const generateLink: MutationResolvers['generateLink'] = async (
       reply_to: REPLY_TO,
       templateId: FEEDBACK_TEMPLATE_ID,
       dynamicTemplateData: {
-        feedback: `${process.env.CLIENT_ADDRESS}/feedback/${feedbackUid}`,
-        report: `${process.env.CLIENT_ADDRESS}/report/${reportUid}`,
+        feedback: makeFeedbackLink(feedbackUid),
+        report: makeReportLink(reportUid),
       },
     };
 
