@@ -3,7 +3,7 @@ import { getUserByCredentials } from './getUserByCredentials';
 import { hashUserPassword } from './hashUserPassword';
 
 describe('getUserByCredentials', () => {
-  const credentials = { email: 'test@test.test', password: 'testtest' };
+  const credentials = { email: 'test@example.com', password: 'testtest' };
   const user = { ...credentials, name: 'Test' };
   beforeEach(async () => {
     // make user to test
@@ -12,7 +12,7 @@ describe('getUserByCredentials', () => {
 
     // make another test user, just to be sure nothing is mixed up
     const anotherUser = {
-      email: 'anothertest@test.test',
+      email: 'anothertest@example.com',
       name: 'Some Test',
       password: 'tsetest',
     };
@@ -32,7 +32,7 @@ describe('getUserByCredentials', () => {
 
   it('returns null with bad email', async () => {
     const result = await getUserByCredentials({
-      email: 'bad@test.test',
+      email: 'bad@example.com',
       password: 'test',
     });
     expect(result).toEqual(null);
@@ -40,7 +40,7 @@ describe('getUserByCredentials', () => {
 
   it('returns null with bad password', async () => {
     const result = await getUserByCredentials({
-      email: 'test@test.test',
+      email: 'test@example.com',
       password: 'badpass',
     });
     expect(result).toEqual(null);

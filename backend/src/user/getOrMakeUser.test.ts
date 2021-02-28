@@ -2,7 +2,7 @@ import { prisma } from '../server/prisma';
 import { getOrMakeUser } from './getOrMakeUser';
 
 describe('getOrMakeUser', () => {
-  const user = { email: 'test@test.test', name: 'Test' };
+  const user = { email: 'test@example.com', name: 'Test' };
   afterEach(async () => {
     await prisma.user.deleteMany();
   });

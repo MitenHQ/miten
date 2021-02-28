@@ -7,7 +7,7 @@ import { forgotPassword as forgotPasswordResolver } from './forgotPassword';
 const forgotPassword = resolverHelper(forgotPasswordResolver);
 
 describe('forgotPassword', () => {
-  const user = { email: 'test@test.test', name: 'Test', password: 'testtest' };
+  const user = { email: 'test@example.com', name: 'Test', password: 'testtest' };
   beforeEach(async () => {
     // make user to test
     const data = await hashUserPassword(user);
@@ -15,7 +15,7 @@ describe('forgotPassword', () => {
 
     // make another test user, just to be sure nothing is mixed up
     const anotherUser = {
-      email: 'anothertest@test.test',
+      email: 'anothertest@example.com',
       name: 'Some Test',
       password: 'tsetest',
     };
