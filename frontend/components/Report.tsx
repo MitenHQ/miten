@@ -17,9 +17,13 @@ const FooterSection = styled(Footer)`
   padding: 30px;
 `;
 
-const Report: FC = () => {
+type Props = {
+  reportUid?: string;
+};
+
+const Report: FC<Props> = (props) => {
   const { data, loading, error } = useGetReportQuery({
-    variables: { reportUid: 'mJE1vKGf4rlXD9q87Myh4' },
+    variables: { reportUid: props.reportUid || '' },
   });
 
   if (error) return <Root>Error</Root>;
