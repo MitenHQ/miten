@@ -13,7 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  DateTime: string;
+  DateTime: any;
 };
 
 export type GenerateLink = {
@@ -45,6 +45,8 @@ export type FeedbackBase = {
   title?: Maybe<Scalars['String']>;
   feedbackUid: Scalars['String'];
   reportUid: Scalars['String'];
+  feedbackLink: Scalars['String'];
+  reportLink: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   feedbackResponses: Array<FeedbackResponse>;
@@ -165,7 +167,7 @@ export type GetReportQuery = { __typename?: 'Query' } & {
   report?: Maybe<
     { __typename?: 'FeedbackBase' } & Pick<
       FeedbackBase,
-      'id' | 'title' | 'feedbackUid' | 'reportUid' | 'createdAt' | 'updatedAt'
+      'id' | 'title' | 'feedbackLink' | 'createdAt' | 'updatedAt'
     > & {
         feedbackResponses: Array<
           { __typename?: 'FeedbackResponse' } & Pick<
@@ -192,8 +194,7 @@ export const GetReportDocument = gql`
     report(reportUid: $reportUid) {
       id
       title
-      feedbackUid
-      reportUid
+      feedbackLink
       createdAt
       updatedAt
       feedbackResponses {

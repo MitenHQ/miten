@@ -47,6 +47,8 @@ export type FeedbackBase = {
   title?: Maybe<Scalars['String']>;
   feedbackUid: Scalars['String'];
   reportUid: Scalars['String'];
+  feedbackLink: Scalars['String'];
+  reportLink: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   feedbackResponses: Array<FeedbackResponse>;
@@ -339,6 +341,8 @@ export type FeedbackBaseResolvers<
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   feedbackUid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   reportUid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  feedbackLink?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  reportLink?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   feedbackResponses?: Resolver<

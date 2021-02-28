@@ -46,7 +46,7 @@ const Report: FC<Props> = (props) => {
           <MoreDataForm />
         </>
       ) : (
-        <NoResponse />
+        <NoResponse feedbackLink={data.report.feedbackLink} />
       )}
       <FooterSection />
     </Root>

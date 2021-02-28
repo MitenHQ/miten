@@ -29,6 +29,8 @@ type FeedbackBase {
   title: String
   feedbackUid: String!
   reportUid: String!
+  feedbackLink: String!
+  reportLink: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   feedbackResponses: [FeedbackResponse!]!
