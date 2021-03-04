@@ -10,6 +10,8 @@ import { Footer } from './Feedback/Footer';
 import { theme } from '@chakra-ui/react';
 import { getBackgroundByReaction } from './Feedback/getBackgroundByReaction';
 
+import { useSaveFeedbackMutation } from '../lib/graphql/hooks';
+
 const Root = styled.div`
   height: 100%;
   display: grid;
@@ -59,7 +61,7 @@ const detailsList = [
 ];
 
 type Props = {
-  reportUid?: string;
+  feedbackUid?: string;
 };
 
 const Feedback: FC<Props> = (props) => {
@@ -70,10 +72,19 @@ const Feedback: FC<Props> = (props) => {
   // TODO get feedback props from server here e.g. title etc.
   console.log(props, 'Feedback component props');
 
+  const [saveFeedback, { loading, data, error }] = useSaveFeedbackMutation({
+    errorPolicy: 'all',
+  });
+
   const selectReaction = (r: Reactions) => () =>
     reaction ? setReaction(null) : setReaction(r);
 
-  const handleSubmit = (): void => setSubmited(true);
+  const handleSubmit = (): void => {
+    saveFeedback({
+      variables: { data: { rating: 3, feedbackUid: props.feedbackUid || '' } },
+    });
+    setSubmited(true);
+  };
 
   if (submited) {
     return <Submited />;

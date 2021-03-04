@@ -1,0 +1,6 @@
+mutation saveFeedback($data: SaveFeedback!) {
+  saveFeedback(data: $data) {
+    success
+    message
+  }
+}

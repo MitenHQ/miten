@@ -21,6 +21,13 @@ export type GenerateLink = {
   title?: Maybe<Scalars['String']>;
 };
 
+export type SaveFeedback = {
+  feedbackUid: Scalars['String'];
+  rating: Scalars['Int'];
+  items?: Maybe<Array<Maybe<Scalars['String']>>>;
+  comment?: Maybe<Scalars['String']>;
+};
+
 export type Response = {
   __typename?: 'Response';
   success: Scalars['Boolean'];
@@ -72,6 +79,7 @@ export type Mutation = {
   login?: Maybe<AuthResult>;
   register?: Maybe<AuthResult>;
   resetPassword?: Maybe<AuthResult>;
+  saveFeedback?: Maybe<Response>;
   updateUser?: Maybe<User>;
   validateSocialLogin?: Maybe<AuthResult>;
 };
@@ -98,6 +106,10 @@ export type MutationRegisterArgs = {
 
 export type MutationResetPasswordArgs = {
   credentials: NewPasswordInput;
+};
+
+export type MutationSaveFeedbackArgs = {
+  data: SaveFeedback;
 };
 
 export type MutationUpdateUserArgs = {
@@ -185,6 +197,16 @@ export type GenerateLinkMutationVariables = Exact<{
 
 export type GenerateLinkMutation = { __typename?: 'Mutation' } & {
   generateLink?: Maybe<
+    { __typename?: 'Response' } & Pick<Response, 'success' | 'message'>
+  >;
+};
+
+export type SaveFeedbackMutationVariables = Exact<{
+  data: SaveFeedback;
+}>;
+
+export type SaveFeedbackMutation = { __typename?: 'Mutation' } & {
+  saveFeedback?: Maybe<
     { __typename?: 'Response' } & Pick<Response, 'success' | 'message'>
   >;
 };
@@ -291,4 +313,51 @@ export type GenerateLinkMutationResult = Apollo.MutationResult<GenerateLinkMutat
 export type GenerateLinkMutationOptions = Apollo.BaseMutationOptions<
   GenerateLinkMutation,
   GenerateLinkMutationVariables
+>;
+export const SaveFeedbackDocument = gql`
+  mutation saveFeedback($data: SaveFeedback!) {
+    saveFeedback(data: $data) {
+      success
+      message
+    }
+  }
+`;
+export type SaveFeedbackMutationFn = Apollo.MutationFunction<
+  SaveFeedbackMutation,
+  SaveFeedbackMutationVariables
+>;
+
+/**
+ * __useSaveFeedbackMutation__
+ *
+ * To run a mutation, you first call `useSaveFeedbackMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSaveFeedbackMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [saveFeedbackMutation, { data, loading, error }] = useSaveFeedbackMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useSaveFeedbackMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SaveFeedbackMutation,
+    SaveFeedbackMutationVariables
+  >,
+) {
+  return Apollo.useMutation<SaveFeedbackMutation, SaveFeedbackMutationVariables>(
+    SaveFeedbackDocument,
+    baseOptions,
+  );
+}
+export type SaveFeedbackMutationHookResult = ReturnType<typeof useSaveFeedbackMutation>;
+export type SaveFeedbackMutationResult = Apollo.MutationResult<SaveFeedbackMutation>;
+export type SaveFeedbackMutationOptions = Apollo.BaseMutationOptions<
+  SaveFeedbackMutation,
+  SaveFeedbackMutationVariables
 >;

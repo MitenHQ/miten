@@ -23,6 +23,13 @@ export type GenerateLink = {
   title?: Maybe<Scalars['String']>;
 };
 
+export type SaveFeedback = {
+  feedbackUid: Scalars['String'];
+  rating: Scalars['Int'];
+  items?: Maybe<Array<Maybe<Scalars['String']>>>;
+  comment?: Maybe<Scalars['String']>;
+};
+
 export type Response = {
   __typename?: 'Response';
   success: Scalars['Boolean'];
@@ -74,6 +81,7 @@ export type Mutation = {
   login?: Maybe<AuthResult>;
   register?: Maybe<AuthResult>;
   resetPassword?: Maybe<AuthResult>;
+  saveFeedback?: Maybe<Response>;
   updateUser?: Maybe<User>;
   validateSocialLogin?: Maybe<AuthResult>;
 };
@@ -100,6 +108,10 @@ export type MutationRegisterArgs = {
 
 export type MutationResetPasswordArgs = {
   credentials: NewPasswordInput;
+};
+
+export type MutationSaveFeedbackArgs = {
+  data: SaveFeedback;
 };
 
 export type MutationUpdateUserArgs = {
@@ -264,10 +276,11 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   GenerateLink: GenerateLink;
   String: ResolverTypeWrapper<Scalars['String']>;
+  SaveFeedback: SaveFeedback;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   Response: ResolverTypeWrapper<Response>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   FeedbackResponse: ResolverTypeWrapper<FeedbackResponse>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   FeedbackBase: ResolverTypeWrapper<FeedbackBase>;
   Query: ResolverTypeWrapper<{}>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -287,10 +300,11 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   GenerateLink: GenerateLink;
   String: Scalars['String'];
+  SaveFeedback: SaveFeedback;
+  Int: Scalars['Int'];
   Response: Response;
   Boolean: Scalars['Boolean'];
   FeedbackResponse: FeedbackResponse;
-  Int: Scalars['Int'];
   FeedbackBase: FeedbackBase;
   Query: {};
   Mutation: {};
@@ -407,6 +421,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationResetPasswordArgs, 'credentials'>
+  >;
+  saveFeedback?: Resolver<
+    Maybe<ResolversTypes['Response']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationSaveFeedbackArgs, 'data'>
   >;
   updateUser?: Resolver<
     Maybe<ResolversTypes['User']>,
