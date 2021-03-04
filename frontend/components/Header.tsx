@@ -8,15 +8,15 @@ import {
   FormLabel,
   Image,
   Tooltip,
+  theme,
 } from '@chakra-ui/react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { emailRegex } from './utils/constants';
 import { getMessage } from './Header/getMessage';
+import SVG1 from './Illustrations/SVG1';
 
 const Root = styled.div`
-  background: url('/mario-gogh-VBLHICVh-lI-unsplash.png') no-repeat center center fixed;
-  background-size: cover;
   height: 100%;
 `;
 
@@ -32,12 +32,31 @@ const Logo = styled.div`
   width: 200px;
 `;
 
-const Left = styled.div`
+const Another = styled.div`
   position: relative;
   height: calc(100% - 150px);
   display: grid;
+  grid-template-columns: 2fr 1fr;
   align-content: center;
-  color: white;
+  color: ${(theme as any).colors.teal[800]};
+  @media only screen and (max-width: 768px) {
+    margin-top: 20px;
+    height: auto;
+    grid-template-columns: 1fr;
+  }
+`;
+
+const Left = styled.div``;
+
+const Right = styled.div`
+  justify-items: right;
+  display: grid;
+
+  @media only screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    margin-top: 10px;
+  }
 `;
 
 const Title = styled.h1`
@@ -86,41 +105,46 @@ const Header: FC = () => {
     <Root>
       <Container>
         <Logo>
-          <Image src="/logo-white.png" alt="Logo" />
+          <Image src="/logo.png" alt="Logo" />
         </Logo>
-        <Left>
-          <Title>Improve your meetings by getting feedback</Title>
-          <SubTitle>Enter you email to receive a feedback form link</SubTitle>
-          <Form onSubmit={handleSubmit(submit)}>
-            <FormControl id="email">
-              <FormLabel mb="0">Your email</FormLabel>
-              <Tooltip label={errors?.email?.message} isOpen={!!errors?.email}>
-                <Input
-                  type="email"
-                  name="email"
-                  ref={register({
-                    required: 'Email is required to get the feedback form link',
-                    pattern: {
-                      message: 'Email is not entered correctly',
-                      value: emailRegex,
-                    },
-                  })}
-                />
-              </Tooltip>
-              <Button
-                type="submit"
-                isLoading={loading}
-                loadingText="Generating..."
-                colorScheme="teal"
-              >
-                Get a feedback link!
-              </Button>
-              <FormHelperText color="white">
-                {message ? message : 'We will never share your email.'}
-              </FormHelperText>
-            </FormControl>
-          </Form>
-        </Left>
+        <Another>
+          <Left>
+            <Title>Improve your meetings by getting feedback</Title>
+            <SubTitle>Enter you email to receive a feedback form link</SubTitle>
+            <Form onSubmit={handleSubmit(submit)}>
+              <FormControl id="email">
+                <FormLabel mb="0">Your email</FormLabel>
+                <Tooltip label={errors?.email?.message} isOpen={!!errors?.email}>
+                  <Input
+                    type="email"
+                    name="email"
+                    ref={register({
+                      required: 'Email is required to get the feedback form link',
+                      pattern: {
+                        message: 'Email is not entered correctly',
+                        value: emailRegex,
+                      },
+                    })}
+                  />
+                </Tooltip>
+                <Button
+                  type="submit"
+                  isLoading={loading}
+                  loadingText="Generating..."
+                  colorScheme="teal"
+                >
+                  Get a feedback link!
+                </Button>
+                <FormHelperText>
+                  {message ? message : 'We will never share your email.'}
+                </FormHelperText>
+              </FormControl>
+            </Form>
+          </Left>
+          <Right>
+            <SVG1 />
+          </Right>
+        </Another>
       </Container>
     </Root>
   );
