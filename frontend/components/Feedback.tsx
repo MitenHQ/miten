@@ -58,10 +58,17 @@ const detailsList = [
   'Agenda',
 ];
 
-const Feedback: FC = () => {
+type Props = {
+  reportUid?: string;
+};
+
+const Feedback: FC<Props> = (props) => {
   const [submited, setSubmited] = useState(false);
   const [reaction, setReaction] = useState<Reactions | null>(null);
   const [subtitleAnimation, detailsFormAnimation] = useAppAnimations(reaction);
+
+  // TODO get feedback props from server here e.g. title etc.
+  console.log(props, 'Feedback component props');
 
   const selectReaction = (r: Reactions) => () =>
     reaction ? setReaction(null) : setReaction(r);

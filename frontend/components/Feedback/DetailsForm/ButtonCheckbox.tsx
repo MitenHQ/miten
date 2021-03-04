@@ -27,6 +27,7 @@ const Label = styled.div`
 `;
 
 const CheckboxRoot = styled.label<StyledProps>`
+  user-select: none;
   -webkit-tap-highlight-color: transparent;
   display: inline-grid;
   padding: 4px;
