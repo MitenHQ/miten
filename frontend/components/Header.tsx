@@ -1,36 +1,68 @@
 import React, { FC } from 'react';
 import { useGenerateLinkMutation } from '../lib/graphql/hooks';
 import {
-  Button,
-  Container,
-  Heading,
-  Input,
+  Button as ChakraButton,
+  Input as ChakraInput,
   FormControl,
   FormHelperText,
   FormLabel,
-  SimpleGrid,
+  Image,
+  Tooltip,
 } from '@chakra-ui/react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { emailRegex } from './utils/constants';
 import { getMessage } from './Header/getMessage';
 
-const Root = styled.header`
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-  padding: 20px;
-  max-width: 90%;
+const Root = styled.div`
+  background: url('/mario-gogh-VBLHICVh-lI-unsplash.png') no-repeat center center fixed;
+  background-size: cover;
+  height: 100%;
 `;
 
-const MessageContainer = styled.section`
-  display: flex;
-  flex-flow: column nowrap;
-  margin-top: 20px;
-  color: teal;
-  & span {
-    font-size: 0.8rem;
-  }
+const Container = styled.div`
+  margin: auto;
+  width: 90%;
+  max-width: 1000px;
+  height: 100%;
+`;
+
+const Logo = styled.div`
+  padding-top: 20px;
+  width: 200px;
+`;
+
+const Left = styled.div`
+  position: relative;
+  height: calc(100% - 150px);
+  display: grid;
+  align-content: center;
+  color: white;
+`;
+
+const Title = styled.h1`
+  font-size: 32px;
+  font-weight: 500;
+`;
+
+const SubTitle = styled.h3`
+  font-size: 24px;
+  font-weight: 200;
+`;
+
+const Form = styled.form`
+  margin-top: 30px;
+`;
+
+const Input = styled(ChakraInput)`
+  display: inline-block;
+  max-width: 338px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+`;
+
+const Button = styled(ChakraButton)`
+  vertical-align: top !important;
 `;
 
 type FormValues = {
@@ -38,7 +70,7 @@ type FormValues = {
 };
 
 const Header: FC = () => {
-  const { handleSubmit, register } = useForm<FormValues>();
+  const { handleSubmit, register, errors } = useForm<FormValues>();
 
   const [generateLink, { loading, data, error }] = useGenerateLinkMutation({
     errorPolicy: 'all',
@@ -48,27 +80,33 @@ const Header: FC = () => {
     generateLink({ variables: { data: { email } } });
   };
 
+  const message = getMessage(data, error);
+
   return (
     <Root>
       <Container>
-        <Heading as="h1" size="md" mb="7">
-          Get a feedback form link!
-        </Heading>
-        <form onSubmit={handleSubmit(submit)}>
-          <FormControl id="email">
-            <SimpleGrid spacing="10px">
+        <Logo>
+          <Image src="/logo-white.png" alt="Logo" />
+        </Logo>
+        <Left>
+          <Title>Improve your meetings by getting feedback</Title>
+          <SubTitle>Enter you email to receive a feedback form link</SubTitle>
+          <Form onSubmit={handleSubmit(submit)}>
+            <FormControl id="email">
               <FormLabel mb="0">Your email</FormLabel>
-              <Input
-                type="email"
-                name="email"
-                ref={register({
-                  required: 'Email is required to register',
-                  pattern: {
-                    message: 'Email is not entered correctly',
-                    value: emailRegex,
-                  },
-                })}
-              />
+              <Tooltip label={errors?.email?.message} isOpen={!!errors?.email}>
+                <Input
+                  type="email"
+                  name="email"
+                  ref={register({
+                    required: 'Email is required to get the feedback form link',
+                    pattern: {
+                      message: 'Email is not entered correctly',
+                      value: emailRegex,
+                    },
+                  })}
+                />
+              </Tooltip>
               <Button
                 type="submit"
                 isLoading={loading}
@@ -77,13 +115,12 @@ const Header: FC = () => {
               >
                 Get a feedback link!
               </Button>
-              <FormHelperText>{'We will never share your email.'}</FormHelperText>
-            </SimpleGrid>
-          </FormControl>
-        </form>
-        <MessageContainer>
-          <span>{getMessage(data, error)}</span>
-        </MessageContainer>
+              <FormHelperText color="white">
+                {message ? message : 'We will never share your email.'}
+              </FormHelperText>
+            </FormControl>
+          </Form>
+        </Left>
       </Container>
     </Root>
   );
