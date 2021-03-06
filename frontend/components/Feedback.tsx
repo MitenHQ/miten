@@ -81,7 +81,6 @@ const Feedback: FC<Props> = (props) => {
 
   const handleSubmit = (formValues: FormValues): void => {
     const { comment, selectedItems } = formValues;
-    console.log('ohooooo', selectedItems);
     saveFeedback({
       variables: {
         data: {

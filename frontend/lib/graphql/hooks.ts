@@ -24,7 +24,7 @@ export type GenerateLink = {
 export type SaveFeedback = {
   feedbackUid: Scalars['String'];
   rating: Scalars['Int'];
-  items?: Maybe<Array<Maybe<Scalars['String']>>>;
+  items?: Maybe<Array<Scalars['String']>>;
   comment?: Maybe<Scalars['String']>;
 };
 
