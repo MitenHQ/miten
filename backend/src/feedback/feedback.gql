@@ -11,7 +11,7 @@ input GenerateLink {
 input SaveFeedback {
   feedbackUid: String!
   rating: Int!
-  items: [String!]
+  items: [String!]!
   comment: String
 }
 
