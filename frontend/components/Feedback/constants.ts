@@ -1,7 +1,7 @@
 export enum Reactions {
-  HORRIBLE = 'horrible',
-  BAD = 'bad',
-  MEH = 'meh',
-  GOOD = 'good',
-  AWESOME = 'awesome',
+  HORRIBLE = 1,
+  BAD = 2,
+  MEH = 3,
+  GOOD = 4,
+  AWESOME = 5,
 }

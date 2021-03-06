@@ -70,7 +70,7 @@ const Feedback: FC<Props> = (props) => {
   const [subtitleAnimation, detailsFormAnimation] = useAppAnimations(reaction);
 
   // TODO get feedback props from server here e.g. title etc.
-  console.log(props, 'Feedback component props');
+  console.log(reaction, 'reaction chie amoo');
 
   const [saveFeedback, { loading, data, error }] = useSaveFeedbackMutation({
     errorPolicy: 'all',
@@ -81,7 +81,9 @@ const Feedback: FC<Props> = (props) => {
 
   const handleSubmit = (): void => {
     saveFeedback({
-      variables: { data: { rating: 3, feedbackUid: props.feedbackUid || '' } },
+      variables: {
+        data: { rating: reaction || 1, feedbackUid: props.feedbackUid || '' },
+      },
     });
     setSubmited(true);
   };
