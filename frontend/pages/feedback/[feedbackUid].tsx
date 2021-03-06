@@ -5,7 +5,10 @@ import Feedback from '../../components/Feedback';
 
 const FeedbackPage: FC = () => {
   const router = useRouter();
-  const { feedbackUid } = router.query;
+  const { feedbackUid: queryFeedbackUid } = router.query;
+  const feedbackUid = Array.isArray(queryFeedbackUid)
+    ? queryFeedbackUid[0]
+    : queryFeedbackUid;
 
   return (
     <>
