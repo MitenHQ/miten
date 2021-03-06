@@ -70,8 +70,6 @@ const Feedback: FC<Props> = (props) => {
   const [reaction, setReaction] = useState<Reactions | null>(null);
   const [subtitleAnimation, detailsFormAnimation] = useAppAnimations(reaction);
 
-  // TODO get feedback props from server here e.g. title etc.
-
   const [saveFeedback, { loading, data, error }] = useSaveFeedbackMutation({
     errorPolicy: 'all',
   });
