@@ -42,6 +42,9 @@ export const saveFeedback: MutationResolvers['saveFeedback'] = async (
     await prisma.feedbackResponse.create({
       data: {
         rating,
+        // TODO Enable sending items.
+        // @Nick: I can't figure out how to make a nullable array acceptable for Prisma
+        //  items: items || '',
         comment: comment || '',
         feedbackBase: { connect: { id: feedbackBase.id } },
       },
