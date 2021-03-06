@@ -21,9 +21,9 @@ const Paragraph = styled.p`
 export const HowToReadStackedChart: FC = () => {
   const initialFocusRef = useRef<FocusableElement>(null); // a hack just to not show the focus area
   return (
-    <Popover initialFocusRef={initialFocusRef} placement="top">
+    <Popover isLazy initialFocusRef={initialFocusRef} placement="top">
       <PopoverTrigger>
-        <Button size="xs" leftIcon={<BsQuestionCircle />}>
+        <Button marginTop="12" size="xs" leftIcon={<BsQuestionCircle />}>
           How to read this chart?
         </Button>
       </PopoverTrigger>
