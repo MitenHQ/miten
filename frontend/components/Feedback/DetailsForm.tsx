@@ -32,7 +32,8 @@ export type FormValuesBase = {
   comment: string;
 };
 
-export type FormValues = FormValuesBase & { [key in string]: boolean }; // keys are items
+type BooleanItems = { [key in string]: boolean };
+export type FormValues = FormValuesBase & BooleanItems; // keys are items
 export type FormValuesToSubmit = FormValuesBase & { items: string[] };
 
 export type Props = {
@@ -42,11 +43,11 @@ export type Props = {
   onSubmit: (formValues: FormValuesToSubmit) => void;
 };
 
-const prepareItems = (formValues: FormValues): string[] => {
+const prepareItems = (booleanItems: BooleanItems): string[] => {
   const items = [];
 
-  for (const value in formValues) {
-    if (formValues[value]) {
+  for (const value in booleanItems) {
+    if (booleanItems[value]) {
       items.push(value.toLowerCase());
     }
   }
@@ -56,8 +57,9 @@ const prepareItems = (formValues: FormValues): string[] => {
 export const DetailsForm: FC<Props> = ({ items, reaction, setReaction, onSubmit }) => {
   const { handleSubmit, register, reset } = useForm<FormValues>();
   const submit = (values: FormValues): void => {
-    const items = prepareItems(values);
-    const formValues = { ...values, items };
+    const { comment, ...otherItems } = values;
+    const items = prepareItems(otherItems);
+    const formValues = { comment, items };
     onSubmit(formValues);
   };
   const handleReset = (): void => {
