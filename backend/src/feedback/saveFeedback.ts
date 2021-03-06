@@ -16,7 +16,7 @@ export const saveFeedback: MutationResolvers['saveFeedback'] = async (
     await prisma.feedbackResponse.create({
       data: {
         rating,
-        items: items || [],
+        items,
         comment: comment || '',
         feedbackBase: { connect: { id: feedbackBase.id } },
       },
