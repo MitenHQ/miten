@@ -3,13 +3,12 @@ import styled from 'styled-components';
 import { animated } from 'react-spring';
 import { Reactions } from './Feedback/constants';
 import { ReactionsForm } from './Feedback/ReactionsForm';
-import { DetailsForm } from './Feedback/DetailsForm';
+import { DetailsForm, Props as DetailsFormProps } from './Feedback/DetailsForm';
 import { useAppAnimations } from './Feedback/useAppAnimations';
 import { Submited } from './Feedback/Submited';
 import { Footer } from './Feedback/Footer';
 import { theme } from '@chakra-ui/react';
 import { getBackgroundByReaction } from './Feedback/getBackgroundByReaction';
-import { FormValues } from './Feedback/DetailsForm';
 
 import { useSaveFeedbackMutation } from '../lib/graphql/hooks';
 
@@ -70,22 +69,20 @@ const Feedback: FC<Props> = (props) => {
   const [reaction, setReaction] = useState<Reactions | null>(null);
   const [subtitleAnimation, detailsFormAnimation] = useAppAnimations(reaction);
 
-  const [saveFeedback, { loading, data, error }] = useSaveFeedbackMutation({
+  const [saveFeedback] = useSaveFeedbackMutation({
     errorPolicy: 'all',
   });
 
   const selectReaction = (r: Reactions) => () =>
     reaction ? setReaction(null) : setReaction(r);
 
-  const handleSubmit = (formValues: FormValues): void => {
-    const { comment, selectedItems } = formValues;
+  const handleSubmit: DetailsFormProps['onSubmit'] = (formValues) => {
     saveFeedback({
       variables: {
         data: {
           rating: reaction || 1,
           feedbackUid: props.feedbackUid || '',
-          comment,
-          items: selectedItems,
+          ...formValues,
         },
       },
     });

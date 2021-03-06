@@ -28,34 +28,36 @@ const Title = styled.h1`
   font-weight: 500;
 `;
 
-export type FormValues = {
-  selectedItems?: string[];
+export type FormValuesBase = {
   comment: string;
-} & { [key in string]: boolean }; // keys are items
+};
 
-type Props = {
+export type FormValues = FormValuesBase & { [key in string]: boolean }; // keys are items
+export type FormValuesToSubmit = FormValuesBase & { items: string[] };
+
+export type Props = {
   items: string[];
   reaction: Reactions | null;
   setReaction: (reaction: Reactions | null) => void;
-  onSubmit: (formValues: FormValues) => void;
+  onSubmit: (formValues: FormValuesToSubmit) => void;
 };
 
-const prepareItems = (formValues: FormValues) => {
-  const selectedItems = [];
+const prepareItems = (formValues: FormValues): string[] => {
+  const items = [];
 
   for (const value in formValues) {
     if (formValues[value]) {
-      selectedItems.push(value.toLowerCase());
+      items.push(value.toLowerCase());
     }
   }
-  return selectedItems;
+  return items;
 };
+
 export const DetailsForm: FC<Props> = ({ items, reaction, setReaction, onSubmit }) => {
   const { handleSubmit, register, reset } = useForm<FormValues>();
   const submit = (values: FormValues): void => {
-    console.log('formValues', values);
-    const selectedItems = prepareItems(values);
-    const formValues = { ...values, selectedItems };
+    const items = prepareItems(values);
+    const formValues = { ...values, items };
     onSubmit(formValues);
   };
   const handleReset = (): void => {
