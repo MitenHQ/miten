@@ -9,6 +9,7 @@ import { Submited } from './Feedback/Submited';
 import { Footer } from './Feedback/Footer';
 import { theme } from '@chakra-ui/react';
 import { getBackgroundByReaction } from './Feedback/getBackgroundByReaction';
+import { FormValues } from './Feedback/DetailsForm';
 
 import { useSaveFeedbackMutation } from '../lib/graphql/hooks';
 
@@ -70,7 +71,6 @@ const Feedback: FC<Props> = (props) => {
   const [subtitleAnimation, detailsFormAnimation] = useAppAnimations(reaction);
 
   // TODO get feedback props from server here e.g. title etc.
-  console.log(reaction, 'reaction chie amoo');
 
   const [saveFeedback, { loading, data, error }] = useSaveFeedbackMutation({
     errorPolicy: 'all',
@@ -79,10 +79,17 @@ const Feedback: FC<Props> = (props) => {
   const selectReaction = (r: Reactions) => () =>
     reaction ? setReaction(null) : setReaction(r);
 
-  const handleSubmit = (): void => {
+  const handleSubmit = (formValues: FormValues): void => {
+    const { comment, selectedItems } = formValues;
+    console.log('ohooooo', selectedItems);
     saveFeedback({
       variables: {
-        data: { rating: reaction || 1, feedbackUid: props.feedbackUid || '' },
+        data: {
+          rating: reaction || 1,
+          feedbackUid: props.feedbackUid || '',
+          comment,
+          items: selectedItems,
+        },
       },
     });
     setSubmited(true);

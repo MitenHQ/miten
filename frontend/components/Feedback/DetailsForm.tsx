@@ -28,7 +28,8 @@ const Title = styled.h1`
   font-weight: 500;
 `;
 
-type FormValues = {
+export type FormValues = {
+  selectedItems?: string[];
   comment: string;
 } & { [key in string]: boolean }; // keys are items
 
@@ -36,17 +37,26 @@ type Props = {
   items: string[];
   reaction: Reactions | null;
   setReaction: (reaction: Reactions | null) => void;
-  onSubmit: () => void;
+  onSubmit: (formValues: FormValues) => void;
 };
 
+const prepareItems = (formValues: FormValues) => {
+  const selectedItems = [];
+
+  for (const value in formValues) {
+    if (formValues[value]) {
+      selectedItems.push(value.toLowerCase());
+    }
+  }
+  return selectedItems;
+};
 export const DetailsForm: FC<Props> = ({ items, reaction, setReaction, onSubmit }) => {
   const { handleSubmit, register, reset } = useForm<FormValues>();
   const submit = (values: FormValues): void => {
-    const formValues = { ...values, reaction };
-    console.log(formValues);
-
-    onSubmit();
-    // alert(JSON.stringify(formValues));
+    console.log('formValues', values);
+    const selectedItems = prepareItems(values);
+    const formValues = { ...values, selectedItems };
+    onSubmit(formValues);
   };
   const handleReset = (): void => {
     setReaction(null);
