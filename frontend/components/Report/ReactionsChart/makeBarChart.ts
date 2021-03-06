@@ -14,7 +14,7 @@ export const makeBarChart = (element: SVGElement, data: any) => {
     };
   let WIDTH = 400;
 
-  if (window.innerWidth < WIDTH - 100) {
+  if (window.innerWidth < WIDTH) {
     WIDTH = window.innerWidth - 100;
   }
 
