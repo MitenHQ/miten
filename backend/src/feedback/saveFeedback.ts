@@ -37,8 +37,14 @@ export const saveFeedback: MutationResolvers['saveFeedback'] = async (
       include: { feedbackResponses: true },
     });
 
+    if (!feedbackBase) throw Error('No feedbackBase found');
+
     await prisma.feedbackResponse.create({
-      data: { rating },
+      data: {
+        rating,
+        comment: comment || '',
+        feedbackBase: { connect: { id: feedbackBase.id } },
+      },
     });
 
     return { success: true };

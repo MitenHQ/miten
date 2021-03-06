@@ -27,7 +27,7 @@ model FeedbackResponse {
   items          String[]
   comment        String
   feedbackBase   FeedbackBase @relation(fields: [feedbackBaseId], references: [id])
-  feedbackBaseId Int          @unique
+  feedbackBaseId Int
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @default(now()) @updatedAt
 }
