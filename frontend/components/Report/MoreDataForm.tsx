@@ -42,7 +42,7 @@ export const MoreDataForm: FC = () => {
     <Root>
       <LimitWidth>
         <Button leftIcon={<HiOutlineLightBulb />} colorScheme="blue" onClick={onOpen}>
-          Do you need the data in other shape? Tell us about it
+          Need more data?
         </Button>
       </LimitWidth>
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
