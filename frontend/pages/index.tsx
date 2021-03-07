@@ -8,6 +8,12 @@ const Home: FC = () => {
       <Head>
         <title>Miten</title>
         <link rel="icon" href="/favicon.ico" />
+        <script
+          async
+          defer
+          data-domain="miten.io"
+          src="https://plausible.io/js/plausible.js"
+        ></script>
       </Head>
       <Header />
     </>
