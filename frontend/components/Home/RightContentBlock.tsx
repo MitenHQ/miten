@@ -8,7 +8,7 @@ const Root = styled.section`
   padding: 10rem 0 8rem;
 
   @media only screen and (max-width: 768px) {
-    padding: 8rem 0 6rem;
+    padding: 4rem 0 2rem;
   }
 `;
 
@@ -33,6 +33,10 @@ const Title = styled.h3`
   font-size: 2.575rem;
   line-height: 3.0625rem;
   font-weight: 500;
+
+  @media only screen and (max-width: 768px) {
+    text-align: center;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -44,12 +48,26 @@ const ButtonWrapper = styled.div`
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const Col = styled.div`
   display: block;
-  flex: 0 0 45.83333333%;
-  max-width: 45.83333333%;
+  flex: 50%;
+  max-width: 45%;
+
+  @media only screen and (max-width: 1024px) {
+    max-width: 48%;
+  }
+  @media only screen and (max-width: 768px) {
+    max-width: 450px;
+    width: 100%;
+  }
 `;
 
 type Section = { icon?: string; title?: string; content?: string };

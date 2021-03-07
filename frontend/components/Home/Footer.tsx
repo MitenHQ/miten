@@ -116,11 +116,6 @@ const FooterContainer = styled.div`
   width: 100%;
   display: flex;
 
-  @media screen and (max-width: 414px) {
-    padding: 2rem 0;
-    padding-right: 50%;
-  }
-
   div {
     cursor: pointer;
     margin-right: 15px;
@@ -134,7 +129,7 @@ const FooterContainer = styled.div`
 `;
 
 const OpenSource = styled.span`
-  margin-right: 30px;
+  margin-right: 10px;
 `;
 
 export const Footer: FC = () => {
@@ -173,7 +168,7 @@ export const Footer: FC = () => {
           <LastRow>
             <NavLink href="/">
               <LogoContainer>
-                <Image width="100px" src="img/svg/logo.png" alt="Miten" />
+                <Image width="100px" height="100%" src="img/logo.png" alt="Miten" />
               </LogoContainer>
             </NavLink>
             <FooterContainer>

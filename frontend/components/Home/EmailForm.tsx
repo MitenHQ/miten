@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useGenerateLinkMutation } from '../lib/graphql/hooks';
+import { useGenerateLinkMutation } from '../../lib/graphql/hooks';
 import {
   Button,
   Input,
@@ -10,8 +10,8 @@ import {
 } from '@chakra-ui/react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { emailRegex } from './utils/constants';
-import { getMessage } from './Header/getMessage';
+import { emailRegex } from '../utils/constants';
+import { getMessage } from './getMessage';
 
 const MessageContainer = styled.section`
   display: flex;

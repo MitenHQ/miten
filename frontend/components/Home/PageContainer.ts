@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const PageContainer = styled.div<{ padding?: boolean; border?: boolean }>`
   position: relative;
   width: 100%;
-  max-width: 1280px;
+  max-width: 1200px;
   margin-right: auto;
   margin-left: auto;
   padding: ${(props) => (props.padding ? '2.8rem' : '0 25px')};

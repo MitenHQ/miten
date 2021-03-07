@@ -26,7 +26,7 @@ export const Header: FC = () => {
     <Root>
       <Container>
         <LogoContainer href="/" aria-label="homepage">
-          <Image width="140px" src="img/svg/logo.png" alt="Miten" />
+          <Image width="140px" height="100%" src="img/logo.png" alt="Miten" />
         </LogoContainer>
       </Container>
     </Root>

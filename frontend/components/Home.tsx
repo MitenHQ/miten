@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import { LeftContentBlock } from './Header/LeftContentBlock';
-import { RightContentBlock } from './Header/RightContentBlock';
-import { Footer } from './Header/Footer';
-import { Header } from './Header/Header';
-import { PageContainer } from './Header/PageContainer';
-import { EmailForm } from './EmailForm';
+import { LeftContentBlock } from './Home/LeftContentBlock';
+import { RightContentBlock } from './Home/RightContentBlock';
+import { Footer } from './Home/Footer';
+import { Header } from './Home/Header';
+import { PageContainer } from './Home/PageContainer';
+import { EmailForm } from './Home/EmailForm';
 
 const Home: FC = () => {
   return (
