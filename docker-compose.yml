@@ -32,16 +32,13 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./backend
-    volumes:
-      - ./backend:/usr/src/app
     environment:
       - PORT=4040
       - ALLOW_ORIGIN=http://docker.localhost
       - CLIENT_ADDRESS=http://docker.localhost
       - NODE_ENV=production
-      - JWT_SECRET="JWT_DARK_SECRET" # This will be in secrets in a real proaduction
-      - DATABASE_URL="postgresql://admin:example@localhost:5432/miten?schema=public" # This will be in secrets in a real proaduction
-
+      - JWT_SECRET=JWT_DARK_SECRET # This will be in secrets in a real proaduction
+      - DATABASE_URL=postgresql://admin:example@db:5432/miten?schema=public # This will be in secrets in a real proaduction
     labels:
       - 'traefik.http.routers.api.rule=Host(`api.docker.localhost`)'
 
