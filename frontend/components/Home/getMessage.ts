@@ -10,7 +10,7 @@ export const getMessage = (
   if (data?.generateLink?.message) {
     return data.generateLink.message;
   } else if (data?.generateLink?.success) {
-    return 'The related links has been sent to your email.';
+    return 'Check your email!';
   }
 
   return '';
