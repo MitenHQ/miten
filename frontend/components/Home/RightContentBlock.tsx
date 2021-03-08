@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/button';
-import { Image } from '@chakra-ui/image';
+import Image from 'next/image';
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
@@ -106,8 +106,9 @@ export const RightContentBlock: FC<Props> = ({
           <Image
             src={'/img/' + icon}
             className="about-block-image"
-            width="100%"
-            height="100%"
+            width="500"
+            height="300"
+            layout="responsive"
           />
         </Col>
       </Row>

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { Image } from '@chakra-ui/image';
+import Image from 'next/image';
+
 import styled from 'styled-components';
 
 const Root = styled.header`
@@ -26,7 +27,7 @@ export const Header: FC = () => {
     <Root>
       <Container>
         <LogoContainer href="/" aria-label="homepage">
-          <Image width="140px" height="100%" src="img/logo.png" alt="Miten" />
+          <Image width="128" height="58" src={'/img/logo.png'} alt="Miten" />
         </LogoContainer>
       </Container>
     </Root>

@@ -1,4 +1,4 @@
-import { Image } from '@chakra-ui/image';
+import Image from 'next/image';
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
@@ -96,7 +96,7 @@ export const LeftContentBlock: FC<Props> = ({
     <Root>
       <Row id={id}>
         <Col>
-          <Image src={'/img/' + icon} width="100%" height="100%" />
+          <Image src={'/img/' + icon} width="500" height="300" layout="responsive" />
         </Col>
         <Col>
           <ContentWrapper>
