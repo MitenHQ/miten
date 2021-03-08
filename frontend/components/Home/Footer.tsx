@@ -19,6 +19,12 @@ const Container = styled.footer`
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 `;
 
 const LastRow = styled.div`
@@ -30,8 +36,17 @@ const LastRow = styled.div`
 
 const Col = styled.div`
   display: block;
-  flex: 0 0 33.33333333%;
-  max-width: 33.33333333%;
+  flex: 33%;
+  max-width: 30%;
+
+  @media only screen and (max-width: 1024px) {
+    max-width: 30%;
+  }
+  @media only screen and (max-width: 768px) {
+    max-width: 450px;
+    width: 100%;
+    margin-top: 30px;
+  }
 `;
 
 const Para = styled.div`
@@ -66,7 +81,7 @@ const Title = styled.h4`
   }
 `;
 
-const Large = styled.a<{ left: boolean }>`
+const Large = styled.a<{ left?: boolean }>`
   font-size: 16px;
   color: #319795;
   text-align: ${(props) => (props.left ? 'left' : '')};
@@ -80,6 +95,10 @@ const Large = styled.a<{ left: boolean }>`
 
   &:hover {
     color: #c53030;
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding: 0;
   }
 `;
 

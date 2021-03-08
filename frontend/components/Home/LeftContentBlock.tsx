@@ -32,10 +32,6 @@ const Title = styled.h3`
   font-size: 2.575rem;
   line-height: 3.0625rem;
   font-weight: 500;
-
-  @media only screen and (max-width: 768px) {
-    text-align: center;
-  }
 `;
 
 const ServiceWrapper = styled.div`
