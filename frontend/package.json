@@ -6,6 +6,7 @@
     "start": "concurrently --handle-input npm:next-dev npm:watch-graphql",
     "next-dev": "next dev -- -p 4000",
     "build": "next build",
+    "export": "next export",
     "next-start": "next start",
     "watch-graphql": "graphql-codegen --watch '../backend/src/**/*.gql' --watch 'components/**/*.ts' --watch 'components/**/*.tsx' --watch 'components/**/*.gql'",
     "generate-types": "graphql-codegen",
