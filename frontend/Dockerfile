@@ -1,33 +1,3 @@
-# FROM node:alpine AS builder
-# RUN apk add --no-cache libc6-compat
-# 
-# WORKDIR /usr/src/app
-# COPY package*.json ./
-# RUN npm ci
-# 
-# COPY . .
-# 
-# RUN npx next telemetry disable
-# RUN npm run build
-# 
-# FROM node:alpine
-# WORKDIR /usr/src/app
-# ENV NODE_ENV production
-# RUN addgroup -g 1001 -S nodejs
-# RUN adduser -S nextjs -u 1001
-# 
-# USER nextjs
-# EXPOSE 3000
-# COPY --from=builder /usr/src/app/node_modules ./node_modules
-# COPY --from=builder /usr/src/app/.next ./.next
-# COPY --from=builder /usr/src/app/public ./public
-# 
-# RUN npx next telemetry disable
-# CMD ["node_modules/.bin/next", "start"]
-
-
-# Copy bazaaar
-
 # Install dependencies only when needed
 FROM node:alpine AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
@@ -50,7 +20,7 @@ WORKDIR /usr/src/app
 ENV NODE_ENV production
 
 # You only need to copy next.config.js if you are NOT using the default configuration
-# COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/next.config.js ./
 COPY --from=builder /usr/src/app/public ./public
 COPY --from=builder /usr/src/app/.next ./.next
 COPY --from=builder /usr/src/app/node_modules ./node_modules
@@ -64,8 +34,6 @@ EXPOSE 3000
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry.
 RUN npx next telemetry disable
 
 CMD ["node_modules/.bin/next", "start"]
-
