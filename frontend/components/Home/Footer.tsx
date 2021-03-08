@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Image } from '@chakra-ui/image';
+import Image from 'next/image';
 import { PageContainer } from './PageContainer';
 import styled from 'styled-components';
 
@@ -168,7 +168,7 @@ export const Footer: FC = () => {
           <LastRow>
             <NavLink href="/">
               <LogoContainer>
-                <Image width="100px" height="100%" src="img/logo.png" alt="Miten" />
+                <Image width="128" height="58" src="/img/logo.png" alt="Miten" />
               </LogoContainer>
             </NavLink>
             <FooterContainer>
