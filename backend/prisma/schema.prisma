@@ -10,30 +10,30 @@ generator client {
 }
 
 model FeedbackBase {
-  id                Int                @id @default(autoincrement())
+  id                String          @id @default(uuid())
   title             String?
   feedbackUid       String             @unique
   reportUid         String             @unique
   user              User               @relation(fields: [userId], references: [id])
-  userId            Int
+  userId            String
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @default(now()) @updatedAt
   feedbackResponses FeedbackResponse[]
 }
 
 model FeedbackResponse {
-  id             Int          @id @default(autoincrement())
+  id             String        @id @default(uuid())
   rating         Int
   items          String[]
   comment        String
   feedbackBase   FeedbackBase @relation(fields: [feedbackBaseId], references: [id])
-  feedbackBaseId Int
+  feedbackBaseId String
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @default(now()) @updatedAt
 }
 
 model User {
-  id            Int            @id @default(autoincrement())
+  id            String         @id @default(uuid())
   email         String         @unique
   name          String?
   password      String?
@@ -49,7 +49,7 @@ enum TOKEN_TYPES {
 }
 
 model Token {
-  id        Int         @id @default(autoincrement())
+  id        String      @id @default(uuid())
   user      User        @relation(fields: [email], references: [email])
   email     String
   token     String
@@ -60,7 +60,7 @@ model Token {
 }
 
 model LoginFailedAttempt {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   email     String
   resolved  Boolean
   createdAt DateTime @default(now())
