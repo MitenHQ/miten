@@ -38,19 +38,19 @@ export type Response = {
 
 export type FeedbackResponse = {
   __typename?: 'FeedbackResponse';
-  id: Scalars['Int'];
+  id: Scalars['String'];
   rating: Scalars['Int'];
   items?: Maybe<Array<Maybe<Scalars['String']>>>;
   comment?: Maybe<Scalars['String']>;
   feedbackBase?: Maybe<FeedbackBase>;
-  feedbackBaseId?: Maybe<Scalars['Int']>;
+  feedbackBaseId?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
 
 export type FeedbackBase = {
   __typename?: 'FeedbackBase';
-  id: Scalars['Int'];
+  id: Scalars['String'];
   title?: Maybe<Scalars['String']>;
   feedbackUid: Scalars['String'];
   reportUid: Scalars['String'];
@@ -332,7 +332,7 @@ export type FeedbackResponseResolvers<
   ContextType = ApolloContext,
   ParentType extends ResolversParentTypes['FeedbackResponse'] = ResolversParentTypes['FeedbackResponse']
 > = ResolversObject<{
-  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   rating?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   items?: Resolver<
     Maybe<Array<Maybe<ResolversTypes['String']>>>,
@@ -341,7 +341,7 @@ export type FeedbackResponseResolvers<
   >;
   comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   feedbackBase?: Resolver<Maybe<ResolversTypes['FeedbackBase']>, ParentType, ContextType>;
-  feedbackBaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  feedbackBaseId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -351,7 +351,7 @@ export type FeedbackBaseResolvers<
   ContextType = ApolloContext,
   ParentType extends ResolversParentTypes['FeedbackBase'] = ResolversParentTypes['FeedbackBase']
 > = ResolversObject<{
-  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   feedbackUid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   reportUid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

@@ -36,19 +36,19 @@ export type Response = {
 
 export type FeedbackResponse = {
   __typename?: 'FeedbackResponse';
-  id: Scalars['Int'];
+  id: Scalars['String'];
   rating: Scalars['Int'];
   items?: Maybe<Array<Maybe<Scalars['String']>>>;
   comment?: Maybe<Scalars['String']>;
   feedbackBase?: Maybe<FeedbackBase>;
-  feedbackBaseId?: Maybe<Scalars['Int']>;
+  feedbackBaseId?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
 
 export type FeedbackBase = {
   __typename?: 'FeedbackBase';
-  id: Scalars['Int'];
+  id: Scalars['String'];
   title?: Maybe<Scalars['String']>;
   feedbackUid: Scalars['String'];
   reportUid: Scalars['String'];
