@@ -2,12 +2,9 @@ import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from '
 import { ApolloContext } from '../server/apolloContext';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> };
-export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } &
-  { [P in K]-?: NonNullable<T[P]> };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -69,6 +66,7 @@ export type Query = {
   users?: Maybe<Array<Maybe<User>>>;
 };
 
+
 export type QueryReportArgs = {
   reportUid: Scalars['String'];
 };
@@ -86,41 +84,51 @@ export type Mutation = {
   validateSocialLogin?: Maybe<AuthResult>;
 };
 
+
 export type MutationCreateUserArgs = {
   user: UserInput;
 };
+
 
 export type MutationForgotPasswordArgs = {
   credentials: EmailInput;
 };
 
+
 export type MutationGenerateLinkArgs = {
   data: GenerateLink;
 };
+
 
 export type MutationLoginArgs = {
   credentials: CredentialsInput;
 };
 
+
 export type MutationRegisterArgs = {
   user: UserInput;
 };
+
 
 export type MutationResetPasswordArgs = {
   credentials: NewPasswordInput;
 };
 
+
 export type MutationSaveFeedbackArgs = {
   data: SaveFeedback;
 };
+
 
 export type MutationUpdateUserArgs = {
   user: AdminUserInput;
 };
 
+
 export type MutationValidateSocialLoginArgs = {
   credentials: SocialLoginInput;
 };
+
 
 export type UserInput = {
   email: Scalars['String'];
@@ -150,7 +158,7 @@ export type NewPasswordInput = {
 };
 
 export enum AuthServices {
-  Google = 'GOOGLE',
+  Google = 'GOOGLE'
 }
 
 export type SocialLoginInput = {
@@ -178,6 +186,7 @@ export type ResolversObject<TObject> = WithIndex<TObject>;
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
+
 export type LegacyStitchingResolver<TResult, TParent, TContext, TArgs> = {
   fragment: string;
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
@@ -187,9 +196,7 @@ export type NewStitchingResolver<TResult, TParent, TContext, TArgs> = {
   selectionSet: string;
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
 };
-export type StitchingResolver<TResult, TParent, TContext, TArgs> =
-  | LegacyStitchingResolver<TResult, TParent, TContext, TArgs>
-  | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
+export type StitchingResolver<TResult, TParent, TContext, TArgs> = LegacyStitchingResolver<TResult, TParent, TContext, TArgs> | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
 export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
   | ResolverFn<TResult, TParent, TContext, TArgs>
   | StitchingResolver<TResult, TParent, TContext, TArgs>;
@@ -198,36 +205,25 @@ export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
   args: TArgs,
   context: TContext,
-  info: GraphQLResolveInfo,
+  info: GraphQLResolveInfo
 ) => Promise<TResult> | TResult;
 
 export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
   args: TArgs,
   context: TContext,
-  info: GraphQLResolveInfo,
+  info: GraphQLResolveInfo
 ) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
 
 export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
   args: TArgs,
   context: TContext,
-  info: GraphQLResolveInfo,
+  info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
-export interface SubscriptionSubscriberObject<
-  TResult,
-  TKey extends string,
-  TParent,
-  TContext,
-  TArgs
-> {
-  subscribe: SubscriptionSubscribeFn<
-    { [key in TKey]: TResult },
-    TParent,
-    TContext,
-    TArgs
-  >;
+export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
   resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
 }
 
@@ -240,27 +236,17 @@ export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, 
   | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
   | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
 
-export type SubscriptionResolver<
-  TResult,
-  TKey extends string,
-  TParent = {},
-  TContext = {},
-  TArgs = {}
-> =
+export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
   | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
   | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
 
 export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
   parent: TParent,
   context: TContext,
-  info: GraphQLResolveInfo,
+  info: GraphQLResolveInfo
 ) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
-export type IsTypeOfResolverFn<T = {}, TContext = {}> = (
-  obj: T,
-  context: TContext,
-  info: GraphQLResolveInfo,
-) => boolean | Promise<boolean>;
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
 
 export type NextResolverFn<T> = () => Promise<T>;
 
@@ -269,7 +255,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
   parent: TParent,
   args: TArgs,
   context: TContext,
-  info: GraphQLResolveInfo,
+  info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
 /** Mapping between all available schema types and the resolvers types */
@@ -319,26 +305,16 @@ export type ResolversParentTypes = ResolversObject<{
   AuthResult: AuthResult;
 }>;
 
-export type ResponseResolvers<
-  ContextType = ApolloContext,
-  ParentType extends ResolversParentTypes['Response'] = ResolversParentTypes['Response']
-> = ResolversObject<{
+export type ResponseResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['Response'] = ResolversParentTypes['Response']> = ResolversObject<{
   success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type FeedbackResponseResolvers<
-  ContextType = ApolloContext,
-  ParentType extends ResolversParentTypes['FeedbackResponse'] = ResolversParentTypes['FeedbackResponse']
-> = ResolversObject<{
+export type FeedbackResponseResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['FeedbackResponse'] = ResolversParentTypes['FeedbackResponse']> = ResolversObject<{
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   rating?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  items?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['String']>>>,
-    ParentType,
-    ContextType
-  >;
+  items?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
   comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   feedbackBase?: Resolver<Maybe<ResolversTypes['FeedbackBase']>, ParentType, ContextType>;
   feedbackBaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -347,10 +323,7 @@ export type FeedbackResponseResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type FeedbackBaseResolvers<
-  ContextType = ApolloContext,
-  ParentType extends ResolversParentTypes['FeedbackBase'] = ResolversParentTypes['FeedbackBase']
-> = ResolversObject<{
+export type FeedbackBaseResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['FeedbackBase'] = ResolversParentTypes['FeedbackBase']> = ResolversObject<{
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   feedbackUid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -359,113 +332,42 @@ export type FeedbackBaseResolvers<
   reportLink?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  feedbackResponses?: Resolver<
-    Array<ResolversTypes['FeedbackResponse']>,
-    ParentType,
-    ContextType
-  >;
+  feedbackResponses?: Resolver<Array<ResolversTypes['FeedbackResponse']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type QueryResolvers<
-  ContextType = ApolloContext,
-  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
-> = ResolversObject<{
+export type QueryResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   getAllPermissions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
-  report?: Resolver<
-    Maybe<ResolversTypes['FeedbackBase']>,
-    ParentType,
-    ContextType,
-    RequireFields<QueryReportArgs, 'reportUid'>
-  >;
+  report?: Resolver<Maybe<ResolversTypes['FeedbackBase']>, ParentType, ContextType, RequireFields<QueryReportArgs, 'reportUid'>>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
 }>;
 
-export type MutationResolvers<
-  ContextType = ApolloContext,
-  ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
-> = ResolversObject<{
-  createUser?: Resolver<
-    Maybe<ResolversTypes['User']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationCreateUserArgs, 'user'>
-  >;
-  forgotPassword?: Resolver<
-    Maybe<ResolversTypes['AuthResult']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationForgotPasswordArgs, 'credentials'>
-  >;
-  generateLink?: Resolver<
-    Maybe<ResolversTypes['Response']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationGenerateLinkArgs, 'data'>
-  >;
-  login?: Resolver<
-    Maybe<ResolversTypes['AuthResult']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationLoginArgs, 'credentials'>
-  >;
-  register?: Resolver<
-    Maybe<ResolversTypes['AuthResult']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationRegisterArgs, 'user'>
-  >;
-  resetPassword?: Resolver<
-    Maybe<ResolversTypes['AuthResult']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationResetPasswordArgs, 'credentials'>
-  >;
-  saveFeedback?: Resolver<
-    Maybe<ResolversTypes['Response']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationSaveFeedbackArgs, 'data'>
-  >;
-  updateUser?: Resolver<
-    Maybe<ResolversTypes['User']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationUpdateUserArgs, 'user'>
-  >;
-  validateSocialLogin?: Resolver<
-    Maybe<ResolversTypes['AuthResult']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationValidateSocialLoginArgs, 'credentials'>
-  >;
+export type MutationResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>;
+  forgotPassword?: Resolver<Maybe<ResolversTypes['AuthResult']>, ParentType, ContextType, RequireFields<MutationForgotPasswordArgs, 'credentials'>>;
+  generateLink?: Resolver<Maybe<ResolversTypes['Response']>, ParentType, ContextType, RequireFields<MutationGenerateLinkArgs, 'data'>>;
+  login?: Resolver<Maybe<ResolversTypes['AuthResult']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'credentials'>>;
+  register?: Resolver<Maybe<ResolversTypes['AuthResult']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'user'>>;
+  resetPassword?: Resolver<Maybe<ResolversTypes['AuthResult']>, ParentType, ContextType, RequireFields<MutationResetPasswordArgs, 'credentials'>>;
+  saveFeedback?: Resolver<Maybe<ResolversTypes['Response']>, ParentType, ContextType, RequireFields<MutationSaveFeedbackArgs, 'data'>>;
+  updateUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'user'>>;
+  validateSocialLogin?: Resolver<Maybe<ResolversTypes['AuthResult']>, ParentType, ContextType, RequireFields<MutationValidateSocialLoginArgs, 'credentials'>>;
 }>;
 
-export interface DateTimeScalarConfig
-  extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
 
-export type UserResolvers<
-  ContextType = ApolloContext,
-  ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
-> = ResolversObject<{
+export type UserResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  permissions?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['String']>>>,
-    ParentType,
-    ContextType
-  >;
+  permissions?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type AuthResultResolvers<
-  ContextType = ApolloContext,
-  ParentType extends ResolversParentTypes['AuthResult'] = ResolversParentTypes['AuthResult']
-> = ResolversObject<{
+export type AuthResultResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['AuthResult'] = ResolversParentTypes['AuthResult']> = ResolversObject<{
   success?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -482,6 +384,7 @@ export type Resolvers<ContextType = ApolloContext> = ResolversObject<{
   User?: UserResolvers<ContextType>;
   AuthResult?: AuthResultResolvers<ContextType>;
 }>;
+
 
 /**
  * @deprecated
