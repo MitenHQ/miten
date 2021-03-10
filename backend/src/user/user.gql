@@ -10,7 +10,7 @@ input UserInput {
 }
 
 input AdminUserInput {
-  id: Int!
+  id: String!
   email: String
     @stringLength(min: 0, max: 200)
     @pattern(
@@ -55,7 +55,7 @@ input SocialLoginInput {
 }
 
 type User {
-  id: Int
+  id: String
   email: String
   name: String
   permissions: [String]

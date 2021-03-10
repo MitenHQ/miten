@@ -1,6 +1,6 @@
+import { User } from '@prisma/client';
 import { resolverHelper } from '../graphql/resolverHelper';
 import { prisma } from '../server/prisma';
-import { UserWithoutPassword } from '../types';
 import { hashUserPassword } from './hashUserPassword';
 import { allPermissions } from './permissions/allPermissions';
 import { updateUser as updateUserResolver } from './updateUser';
@@ -14,9 +14,11 @@ describe('updateUser', () => {
     password: 'testtest',
     permissions: [],
   };
-  const adminUser = { ...user, id: -1, permissions: allPermissions };
+  const adminUser = { ...user, id: '-1', permissions: allPermissions };
 
-  const makeUser = async (permissions: string[] = []): Promise<UserWithoutPassword> => {
+  const makeUser = async (
+    permissions: string[] = [],
+  ): Promise<Pick<User, 'id' | 'name' | 'email' | 'permissions'>> => {
     const normalUser = await hashUserPassword(user);
     return prisma.user.create({
       data: { ...normalUser, permissions },
@@ -67,7 +69,7 @@ describe('updateUser', () => {
   });
 
   it('does not updates user if it does not exist', async () => {
-    const result = await updateUser({ user: { ...user, id: -1 } });
+    const result = await updateUser({ user: { ...user, id: '-1' } });
 
     expect(result).toEqual({});
   });

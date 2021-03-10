@@ -1,4 +1,3 @@
-import { SchemaDirectiveVisitor } from 'graphql-tools';
 import {
   auth,
   hasPermissions,
@@ -19,7 +18,7 @@ export const schemaDirectives = {
   stringLength,
   selfNodeId,
   foreignNodeId,
-} as Record<string, typeof SchemaDirectiveVisitor>;
+};
 
 export const directiveTypes = [
   auth.getTypeDefs(),

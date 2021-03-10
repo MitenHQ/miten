@@ -11,7 +11,7 @@
     "watch-graphql": "graphql-codegen --watch '../backend/src/**/*.gql' --watch 'components/**/*.ts' --watch 'components/**/*.tsx' --watch 'components/**/*.gql'",
     "generate-types": "graphql-codegen",
     "start:prod": "next build && next start",
-    "tsc": "tsc --noEmit"
+    "ts": "tsc --pretty --noEmit -p ./tsconfig.json --skipLibCheck"
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",

@@ -12,7 +12,8 @@
     "configure-db": "npx prisma migrate dev --preview-feature",
     "pretest": "npm run configure-db && prisma generate",
     "test": "jest --env=node --watch --runInBand",
-    "start:prod": "npm run prestart && prisma generate && ts-node ./src/server.ts"
+    "start:prod": "npm run prestart && prisma generate && ts-node ./src/server.ts",
+    "ts": "tsc --pretty --noEmit -p ./tsconfig.json --skipLibCheck"
   },
   "dependencies": {
     "@graphql-tools/load-files": "^6.2.5",
