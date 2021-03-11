@@ -5,7 +5,7 @@ import { createTokenFromUser } from './createTokenFromUser';
 describe('createTokenFromUser', () => {
   it('creates token correctly', () => {
     const token = createTokenFromUser({
-      id: 1,
+      id: '1',
     });
 
     const tokenDecryptedKeys = Object.keys(jwt.verify(token, JWT_SECRET)).sort();
@@ -15,7 +15,7 @@ describe('createTokenFromUser', () => {
 
   it('does not include extra fields', () => {
     const token = createTokenFromUser({
-      id: 1,
+      id: '1',
       email: 'test@example.com',
       name: 'Test',
       password: '123456',

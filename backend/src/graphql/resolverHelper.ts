@@ -1,5 +1,5 @@
 import { prisma } from '../server/prisma';
-import { UserWithoutPassword } from '../types';
+import { PartialUser } from '../types';
 import { StitchingResolver } from './resolvers-types';
 
 /*
@@ -25,6 +25,6 @@ export function resolverHelper<TArgs, TResult>(
     | StitchingResolver<TResult, any, any, TArgs>
     | undefined,
 ) {
-  return (args: TArgs, user?: UserWithoutPassword): TResult =>
+  return (args: TArgs, user?: PartialUser): TResult =>
     (resolver as ResolverFn<TArgs, TResult>)({}, args, { prisma, user }, {});
 }

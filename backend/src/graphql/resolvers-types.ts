@@ -129,7 +129,7 @@ export type UserInput = {
 };
 
 export type AdminUserInput = {
-  id: Scalars['Int'];
+  id: Scalars['String'];
   email?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   permissions?: Maybe<Array<Scalars['String']>>;
@@ -160,7 +160,7 @@ export type SocialLoginInput = {
 
 export type User = {
   __typename?: 'User';
-  id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   permissions?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -451,7 +451,7 @@ export type UserResolvers<
   ContextType = ApolloContext,
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
 > = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   permissions?: Resolver<

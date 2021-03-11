@@ -1,16 +1,16 @@
+import { User } from '@prisma/client';
 import fetch from 'node-fetch';
 import { AuthServices } from '../../graphql/resolvers-types';
 import {
   GoogleTokenInfoResponse,
   TokenValidator,
-  UserContent,
   ValidateTokenByService,
 } from '../types';
 
 const googleTokenValidator: TokenValidator = (token) =>
   fetch('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + token)
     .then((res) => res.json())
-    .then((decoded: GoogleTokenInfoResponse): UserContent | null => {
+    .then((decoded: GoogleTokenInfoResponse): Pick<User, 'email' | 'name'> | null => {
       // If token wasn't legit
       if ('error_description' in decoded) {
         return null;
