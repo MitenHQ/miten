@@ -47,7 +47,7 @@ const Home: FC = () => {
           title="That's about it!"
           content="Visit the reports page from your email and you'll see the results there."
           icon="graphs.svg"
-          id="product"
+          id={234}
         />
       </PageContainer>
       <Footer />
