@@ -18,7 +18,7 @@ export const saveFeedback: MutationResolvers['saveFeedback'] = async (
         rating,
         items,
         comment: comment || '',
-        feedbackBase: { connect: { id: 12 } },
+        feedbackBase: { connect: { id: feedbackBase.id } },
       },
     });
 
