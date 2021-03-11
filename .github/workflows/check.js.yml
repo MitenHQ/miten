@@ -1,7 +1,8 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Check frontend and backend
+# For now we just check typescript, later we can also run the tests
+name: Check typescript
 
 on:
   push:
@@ -10,7 +11,7 @@ on:
     branches: [master]
 
 jobs:
-  check-miten:
+  check-backend:
     runs-on: ubuntu-latest
     defaults:
       run:
