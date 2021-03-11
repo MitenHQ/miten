@@ -10,7 +10,7 @@ on:
     branches: [master]
 
 jobs:
-  check-backend:
+  check-miten:
     runs-on: ubuntu-latest
     defaults:
       run:
