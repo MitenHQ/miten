@@ -9,12 +9,7 @@ const HomePage: FC = () => {
       <Head>
         <title>Miten</title>
         <link rel="icon" href="/favicon.ico" />
-        <script
-          async
-          defer
-          data-domain="miten.io"
-          src="https://plausible.io/js/plausible.js"
-        ></script>
+        <script>if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0){fetch("https://counter.dev/track?"+new URLSearchParams({referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"albacore",utcoffset:"2"}))};sessionStorage.setItem("_swa","1");</script>
         <meta name="theme-color" content="#2C7A7B" />
         <meta
           name="description"
