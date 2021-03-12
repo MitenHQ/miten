@@ -10,10 +10,10 @@ import {
   SimpleGrid,
   Text,
 } from '@chakra-ui/react';
-import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { emailRegex } from '../utils/constants';
 import { getMessage } from './getMessage';
+import trackEvent from '../../analytics/plausible';
 
 type FormValues = {
   email: string;
@@ -28,6 +28,7 @@ export const EmailForm: FC = () => {
 
   const submit = ({ email }: FormValues): void => {
     generateLink({ variables: { data: { email } } });
+    trackEvent({ eventName: 'generateLinkClicked' });
   };
 
   return (
