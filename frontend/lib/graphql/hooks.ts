@@ -127,7 +127,7 @@ export type UserInput = {
 };
 
 export type AdminUserInput = {
-  id: Scalars['Int'];
+  id: Scalars['String'];
   email?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   permissions?: Maybe<Array<Scalars['String']>>;
@@ -158,7 +158,7 @@ export type SocialLoginInput = {
 
 export type User = {
   __typename?: 'User';
-  id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   permissions?: Maybe<Array<Maybe<Scalars['String']>>>;
