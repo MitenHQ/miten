@@ -25,7 +25,7 @@ const Report: FC<Props> = (props) => {
   const [getReport, { data, loading, error }] = useGetReportLazyQuery();
   const { reportUid } = props;
 
-  // to avoid sending extra queries when the reportUid is empty
+  // To avoid sending the extra queries when the reportUid is empty
   // like in initial load
   useEffect(() => {
     if (reportUid) {
