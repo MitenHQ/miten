@@ -33,10 +33,42 @@ export const makeStackedBarChart = (element: SVGElement, data: Data[]) => {
   const width = 800;
 
   const margin = { top: 50, right: 30, bottom: 0, left: 80 };
+
+  // to increase the margins when positives or negatives are zero
+  const categoriesCount = data.reduce(
+    (counts, { category }) => {
+      counts[category] = counts[category] + 1;
+      return counts;
+    },
+    { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+  );
+
+  if (
+    categoriesCount[1] === 0 &&
+    categoriesCount[2] === 0 &&
+    categoriesCount[3] === 0 &&
+    categoriesCount[4] === 0
+  ) {
+    margin.left = 200;
+  }
+  if (categoriesCount[5] === 0) {
+    margin.right = 200;
+  }
+
+  // to calculate when to show emojis on the chart
+  const maxCountOfTypesBasedOnCategory: { [key: string]: number } = data.reduce(
+    (result, { name, value, category }) => {
+      result[category][name] = value + (result[name] ? result[name] : 0);
+      return result;
+    },
+    { 1: {}, 2: {}, 3: {}, 4: {}, 5: {} },
+  );
+
   const signs = new Map([
     ...options.negatives.map((d) => [d, -1]),
     ...options.positives.map((d) => [d, +1]),
   ]);
+
   const series = d3
     .stack()
     .keys([].concat(options.negatives.slice().reverse(), options.positives))
@@ -148,7 +180,15 @@ export const makeStackedBarChart = (element: SVGElement, data: Data[]) => {
       .attr('height', y.bandwidth());
 
     g.append('text')
-      .text(({ key }) => getEmojiFromRating(key))
+      .text((item) => {
+        const { key, data } = item;
+        const type = data[0];
+
+        // just render emojis when there is something
+        if (maxCountOfTypesBasedOnCategory[key][type] > 0) {
+          return getEmojiFromRating(key);
+        }
+      })
       .attr('opacity', '0.4')
       .attr('x', (d) => x(d[0]) + 20)
       .attr('y', ({ data: [name] }) => y(name) + 20)

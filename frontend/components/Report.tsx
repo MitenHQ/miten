@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 import { MeetingInfo } from './Report/MeetingInfo';
 import { Comments } from './Report/Comments';
@@ -7,7 +7,7 @@ import { CommentsChart } from './Report/CommentsChart';
 import { NoResponse } from './Report/NoResponse';
 import { Footer } from './Feedback/Footer';
 import { MoreDataForm } from './Report/MoreDataForm';
-import { useGetReportQuery } from '../lib/graphql/hooks';
+import { useGetReportLazyQuery } from '../lib/graphql/hooks';
 
 const Root = styled.div`
   margin: auto;
@@ -22,10 +22,20 @@ type Props = {
 };
 
 const Report: FC<Props> = (props) => {
-  const { data, loading, error } = useGetReportQuery({
-    variables: { reportUid: props.reportUid || '' },
-  });
+  const [getReport, { data, loading, error }] = useGetReportLazyQuery();
+  const { reportUid } = props;
 
+  // to avoid sending extra queries when the reportUid is empty
+  // like in initial load
+  useEffect(() => {
+    if (reportUid) {
+      getReport({
+        variables: { reportUid: reportUid },
+      });
+    }
+  }, [reportUid, getReport]);
+
+  if (!reportUid) return <Root />;
   if (error) return <Root>Error</Root>;
   if (loading) return <Root>Loading</Root>;
   if (!data?.report) return <Root>404: Wrong link</Root>;
