@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import Image from 'next/image';
+import NextLink from 'next/link';
 
 import styled from 'styled-components';
 
@@ -26,9 +27,11 @@ export const Header: FC = () => {
   return (
     <Root>
       <Container>
-        <LogoContainer href="/" aria-label="homepage">
-          <Image width="128" height="58" src={'/img/logo.png'} alt="Miten" />
-        </LogoContainer>
+        <NextLink passHref href="/">
+          <LogoContainer aria-label="homepage">
+            <Image width="128" height="58" src={'/img/logo.png'} alt="Miten" />
+          </LogoContainer>
+        </NextLink>
       </Container>
     </Root>
   );

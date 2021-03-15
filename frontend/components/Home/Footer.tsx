@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Image from 'next/image';
 import { PageContainer } from './PageContainer';
 import styled from 'styled-components';
+import NextLink from 'next/link';
 
 const SocialLink: FC<{ href: string; src: string }> = ({ href, src }) => {
   return (
@@ -166,12 +167,12 @@ export const Footer: FC = () => {
             </Col>
             <Col>
               <Title>Policy</Title>
-              <Large href="/" left>
-                Privacy policy
-              </Large>
-              <Large href="/" left>
-                Terms of service
-              </Large>
+              <NextLink passHref href="/privacy" aria-label="privacy policy">
+                <Large>Privacy policy</Large>
+              </NextLink>
+              <NextLink passHref href="/" aria-label="terms of service">
+                <Large>Terms of service</Large>
+              </NextLink>
             </Col>
             <Col>
               <Title>Address</Title>
