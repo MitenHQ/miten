@@ -13,7 +13,7 @@ const FeedbackPage: FC = () => {
   return (
     <>
       <Head>
-        <title>Miten Report</title>
+        <title>How was the meeting?</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Feedback feedbackUid={feedbackUid} />
