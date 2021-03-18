@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
 import Image from 'next/image';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 
 import styled from 'styled-components';
+import { ChangeLocale } from './Header/ChangeLocale';
 
 const Root = styled.header`
   padding: 1rem 0.5rem;
@@ -24,6 +26,9 @@ const LogoContainer = styled.a`
 `;
 
 export const Header: FC = () => {
+  const router = useRouter();
+  console.log(router);
+
   return (
     <Root>
       <Container>
@@ -32,6 +37,7 @@ export const Header: FC = () => {
             <Image width="128" height="58" src={'/img/logo.png'} alt="Miten" />
           </LogoContainer>
         </NextLink>
+        <ChangeLocale />
       </Container>
     </Root>
   );
