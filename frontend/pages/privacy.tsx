@@ -1,12 +1,17 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
 import { PrivacyPolicy } from '../components/PrivacyPolicy';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetStaticProps } from 'next';
+import { defaultLocale } from '../components/utils/constants';
+import { useTranslation } from 'next-i18next';
 
 const HomePage: FC = () => {
+  const { t } = useTranslation('privacy');
   return (
     <>
       <Head>
-        <title>Miten Privacy Policy</title>
+        <title>{t('Miten - Privacy Policy')}</title>
         <link rel="icon" href="/favicon.ico" />
         <script
           async
@@ -45,5 +50,11 @@ const HomePage: FC = () => {
     </>
   );
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale || defaultLocale, ['privacy'])),
+  },
+});
 
 export default HomePage;

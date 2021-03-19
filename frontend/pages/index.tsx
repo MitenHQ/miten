@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
-// import Header from '../components/Header';
 import Home from '../components/Home';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetStaticProps } from 'next';
+import { defaultLocale } from '../components/utils/constants';
 
 const HomePage: FC = () => {
   return (
@@ -46,5 +48,11 @@ const HomePage: FC = () => {
     </>
   );
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale || defaultLocale, ['home'])),
+  },
+});
 
 export default HomePage;
