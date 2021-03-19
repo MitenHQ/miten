@@ -12,7 +12,7 @@ export const ChangeLocale: FC = () => {
         const isActive = locale === currentLocale;
         return (
           <NextLink key={locale} href={asPath} locale={locale} passHref>
-            <a href="/">{getLocaleTitle(locale)}</a>
+            <a href={asPath}>{getLocaleTitle(locale)}</a>
           </NextLink>
         );
       })}

@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
 import Image from 'next/image';
 import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-
 import styled from 'styled-components';
 import { ChangeLocale } from './Header/ChangeLocale';
 
@@ -26,9 +24,6 @@ const LogoContainer = styled.a`
 `;
 
 export const Header: FC = () => {
-  const router = useRouter();
-  console.log(router);
-
   return (
     <Root>
       <Container>
