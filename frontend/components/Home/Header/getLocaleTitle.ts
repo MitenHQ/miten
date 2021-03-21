@@ -1,5 +1,5 @@
 export const localeTitles: { [locale: string]: string } = {
-  'fi-FI': 'Finnish',
+  'fi-FI': 'Suomi',
   'en-US': 'English',
 };
 

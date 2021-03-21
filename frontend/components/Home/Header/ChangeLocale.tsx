@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
-import { getLocaleTitle } from './getLocaleTitle';
 import { Menu, MenuButton, MenuItem, MenuList, Button } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { BiChevronDown } from 'react-icons/bi';
 import { FcGlobe } from 'react-icons/fc';
+import { getLocaleTitle } from './getLocaleTitle';
 
 export const ChangeLocale: FC = () => {
   const { t } = useTranslation('common');

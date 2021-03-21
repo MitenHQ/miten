@@ -8,6 +8,7 @@ import { useTranslation } from 'next-i18next';
 
 const HomePage: FC = () => {
   const { t } = useTranslation('privacy');
+
   return (
     <>
       <Head>
@@ -53,7 +54,7 @@ const HomePage: FC = () => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale || defaultLocale, ['privacy'])),
+    ...(await serverSideTranslations(locale || defaultLocale, ['common', 'privacy'])),
   },
 });
 
