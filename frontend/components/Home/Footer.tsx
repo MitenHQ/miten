@@ -12,7 +12,14 @@ const SocialLink: FC<{ href: string; src: string }> = ({ href, src }) => {
   );
 };
 
-const Container = styled.footer`
+const Root = styled.footer`
+  position: static;
+  bottom: 0;
+  left: 0;
+  right: 0;
+`;
+
+const Container = styled.div`
   background: rgb(249, 250, 252);
   padding: 2.5rem 0;
 `;
@@ -154,7 +161,7 @@ const OpenSource = styled.span`
 
 export const Footer: FC = () => {
   return (
-    <>
+    <Root>
       <Container>
         <PageContainer>
           <Row>
@@ -198,6 +205,6 @@ export const Footer: FC = () => {
           </LastRow>
         </PageContainer>
       </Extra>
-    </>
+    </Root>
   );
 };
