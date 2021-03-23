@@ -21,7 +21,7 @@ export const ForgotPasswordEmailSent: FC = () => {
 
   return (
     <AuthContainer title="" onSubmit={handle}>
-      <div>An email with a link to reset your password sent to {email}.</div>
+      <div>An email with a link to set your password sent to {email}.</div>
       <div>You can continue from there.</div>
       <div>{data?.forgotPassword?.message}</div>
       <Button type="submit" disabled={loading} colorScheme="teal">

@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   Button,
@@ -7,6 +7,7 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useRegisterMutation, UserInput } from '../../lib/graphql/hooks';
 import { useRememberMe } from '../../lib/utils/rememberMe';
@@ -15,18 +16,26 @@ import { AuthContainer } from './AuthContainer';
 import { Link } from './Link';
 import { useRouter } from 'next/router';
 import { emailRegex } from '../utils/constants';
+import { backendMessages } from '../../lib/graphql/backendMessages';
+import { EmailAlreadyExistsModal } from './EmailAlreadyExistsModal';
 
 type RegisterFormType = UserInput & { repeatPassword: string };
 
 export const Register: FC = () => {
   const { push } = useRouter(); // used to redirect after signup
-  const { handleSubmit, register, errors, watch } = useForm<RegisterFormType>(); // handles form values
+  const { handleSubmit, register, errors, watch, reset } = useForm<RegisterFormType>(); // handles form values
   const password = useRef<string | null | undefined>(''); // to use form watch and get password field value to compare it with repeatPassword
   password.current = watch('password', '');
+  const email = useRef<string | null | undefined>(''); // to use form watch and get email field value to send it for EmailSent component on the success redirect
+  email.current = watch('email', '');
   const [remember, setRemember] = useRememberMe(false); // preserves rememberMe state in the localStorage
+
+  const [message, setMessage] = useState<string | null | undefined>(null);
   const [registerUserMutation, { loading, data }] = useRegisterMutation({
     errorPolicy: 'all',
   }); // request handler
+
+  const { isOpen, onOpen, onClose } = useDisclosure(); // to handle showing reset password modal
 
   const handle = async (values: RegisterFormType): Promise<void> => {
     // remove repeatPassword from values that we sent in the request
@@ -40,6 +49,15 @@ export const Register: FC = () => {
   };
 
   const handleRememberMe = (): void => setRemember(!remember);
+
+  useEffect(() => {
+    if (data?.register?.message === backendMessages.EMAIL_EXISTS) {
+      setMessage(null);
+      onOpen();
+    } else {
+      setMessage(data?.register?.message);
+    }
+  }, [data?.register?.message, onOpen]);
 
   return (
     <AuthContainer title="Sign up" onSubmit={handleSubmit(handle)}>
@@ -102,11 +120,20 @@ export const Register: FC = () => {
       >
         Remember me
       </Checkbox>
-      {data?.register?.message}
+      {message}
       <Button type="submit" disabled={loading} colorScheme="teal">
         Create account
       </Button>
       <Link href={'/login'}>Login</Link>
+      <EmailAlreadyExistsModal
+        isOpen={isOpen}
+        onClose={() => {
+          reset();
+          onClose();
+          setMessage(null);
+        }}
+        email={email.current}
+      />
     </AuthContainer>
   );
 };

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import NextLink from 'next/link';
-import { Button } from '@chakra-ui/react';
+import { Button, ButtonProps } from '@chakra-ui/react';
 import styled from 'styled-components';
 
 const A = styled.a`
@@ -9,13 +9,13 @@ const A = styled.a`
 
 export type Props = {
   href: string;
-};
+} & ButtonProps;
 
-export const Link: FC<Props> = (props) => (
-  <NextLink href={props.href} passHref>
-    <A href={props.href} aria-label="forgot password">
-      <Button w="100%" colorScheme="teal" variant="outline">
-        {props.children}
+export const Link: FC<Props> = ({ href, children, ...buttonProps }) => (
+  <NextLink href={href} passHref>
+    <A href={href} aria-label="forgot password">
+      <Button w="100%" colorScheme="teal" variant="outline" {...buttonProps}>
+        {children}
       </Button>
     </A>
   </NextLink>

@@ -28,6 +28,6 @@ describe('register', () => {
     const result = await register({ user });
 
     expect(result?.success).toEqual(false);
-    expect(result?.message).toEqual('This email is already registered');
+    expect(result?.message).toEqual('EMAIL_EXISTS');
   });
 });
