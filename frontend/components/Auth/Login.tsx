@@ -40,11 +40,15 @@ export const Login: FC = () => {
 
   return (
     <AuthContainer title="Login to Miten dashboard" onSubmit={handleSubmit(handle)}>
-      <GoogleLogin />
-      <Divider />
-      <Heading py="4" as="h2" size="l">
-        Or login with your email
-      </Heading>
+      {process.env.googleClientID ? (
+        <>
+          <GoogleLogin />
+          <Divider />
+          <Heading py="4" as="h2" size="l">
+            Or login with your email
+          </Heading>
+        </>
+      ) : null}
       <FormControl id="email">
         <FormLabel>Email address</FormLabel>
         <Input
