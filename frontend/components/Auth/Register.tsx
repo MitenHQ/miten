@@ -86,7 +86,7 @@ export const Register: FC = () => {
         <Input
           name="repeatPassword"
           placeholder="Repeat password"
-          type="repeatPassword"
+          type="password"
           ref={register({
             validate: (value) =>
               value === password.current || 'The passwords do not match',
