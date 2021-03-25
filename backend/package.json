@@ -12,7 +12,7 @@
     "configure-db": "npx prisma migrate dev --preview-feature",
     "pretest": "npm run configure-db && prisma generate",
     "test": "jest --env=node --watch --runInBand",
-    "test:ci": "jest --env=node --runInBand",
+    "test:ci": "npm run configure-db && prisma generate && jest --env=node --runInBand",
     "start:prod": "npm run prestart && prisma generate && ts-node ./src/server.ts",
     "ts": "tsc --pretty --noEmit -p ./tsconfig.json --skipLibCheck"
   },
