@@ -192,7 +192,7 @@ export const Footer: FC = () => {
               </LogoContainer>
             </NavLink>
             <FooterContainer>
-              <OpenSource>Miten 2021 © - Opensource software</OpenSource>
+              <OpenSource>Miten 2021 © - Open Source</OpenSource>
               <SocialLink href="https://github.com/MitenHQ/miten" src="/img/github.svg" />
             </FooterContainer>
           </LastRow>

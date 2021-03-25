@@ -11,7 +11,7 @@ const ReportPage: FC = () => {
   return (
     <>
       <Head>
-        <title>Miten Report</title>
+        <title>Miten | Report</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Report reportUid={reportUid} />
