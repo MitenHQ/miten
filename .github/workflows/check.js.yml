@@ -55,6 +55,8 @@ jobs:
       - name: Create PostgreSQL user
         run: |
           sudo -u postgres psql --command="CREATE USER admin PASSWORD 'example'" --command="\du"
+      - run: cp ./.env.sample ./.env
+      - run: npm run test
 
   check-frontend:
     runs-on: ubuntu-latest
