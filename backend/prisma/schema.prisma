@@ -2,7 +2,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://admin:example@localhost:5432/miten?schema=public"
 }
 
 generator client {
@@ -10,7 +10,7 @@ generator client {
 }
 
 model FeedbackBase {
-  id                String          @id @default(uuid())
+  id                String             @id @default(uuid())
   title             String?
   feedbackUid       String             @unique
   reportUid         String             @unique
@@ -22,7 +22,7 @@ model FeedbackBase {
 }
 
 model FeedbackResponse {
-  id             String        @id @default(uuid())
+  id             String       @id @default(uuid())
   rating         Int
   items          String[]
   comment        String
