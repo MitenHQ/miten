@@ -59,6 +59,7 @@ jobs:
           cp ./.env.test-sample ./.env
           ls -la
           cat ./.env
+      - run: sed -i 's/DATABASE_URL/postgresql:\/\/admin:example@localhost:5432\/miten?schema=public/' ./prisma/schema.prisma
       - run: npm run test:ci
 
   check-frontend:
