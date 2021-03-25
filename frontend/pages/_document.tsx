@@ -2,6 +2,7 @@ import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 // Import styled components ServerStyleSheet
 import { ServerStyleSheet } from 'styled-components';
+import { getLocaleDirection } from '../lib/getLocaleDirection';
 
 type Props = {
   styleTags: any;
@@ -26,7 +27,7 @@ export default class MyDocument extends Document<Props> {
 
   render() {
     return (
-      <Html>
+      <Html dir={getLocaleDirection(this.props.locale)} lang={this.props.locale}>
         <Head>
           {/* Step 5: Output the styles in the head  */}
           {this.props.styleTags}
