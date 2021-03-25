@@ -54,7 +54,7 @@ jobs:
           pg_isready
       - name: Create PostgreSQL user
         run: |
-          sudo -u postgres psql --command="CREATE USER admin PASSWORD 'example' 'Create DB'" --command="\du"
+          sudo -u postgres psql --command="CREATE USER admin PASSWORD 'example' CREATEDB" --command="\du"
       - run: cp ./.env.sample ./.env
       - run: npm run test
 
