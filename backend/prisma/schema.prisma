@@ -2,7 +2,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://admin:example@localhost:5432/miten?schema=public"
+  url      = env("DATABASE_URL")
 }
 
 generator client {

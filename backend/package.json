@@ -19,7 +19,7 @@
   "dependencies": {
     "@graphql-tools/load-files": "^6.2.5",
     "@graphql-tools/merge": "^6.2.6",
-    "@prisma/client": "^2.13.0",
+    "@prisma/client": "^2.19.0",
     "@profusion/apollo-validation-directives": "^2.1.1",
     "@sendgrid/mail": "^7.4.2",
     "@types/nanoid": "^2.1.0",
@@ -60,6 +60,7 @@
     "@types/uuid": "^8.3.0",
     "concurrently": "^5.3.0",
     "jest": "^26.6.3",
+    "prisma": "^2.19.0",
     "ts-jest": "^26.4.4",
     "ts-node-dev": "^1.1.1"
   },
