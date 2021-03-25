@@ -48,6 +48,17 @@ jobs:
       - run: npm ci
       - run: npm run ts
       - run: npm audit
+      - name: Start PostgreSQL
+        run: |
+          sudo systemctl start postgresql.service
+          pg_isready
+      - name: Create PostgreSQL user
+        run: |
+          sudo -u postgres psql --command="CREATE USER admin PASSWORD 'example' CREATEDB" --command="\du"
+      - run: |
+          cp ./.env.test-sample ./.env
+          cat ./.env
+      - run: npm run test:ci
 
   check-frontend:
     runs-on: ubuntu-latest

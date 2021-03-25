@@ -10,7 +10,7 @@ generator client {
 }
 
 model FeedbackBase {
-  id                String          @id @default(uuid())
+  id                String             @id @default(uuid())
   title             String?
   feedbackUid       String             @unique
   reportUid         String             @unique
@@ -22,7 +22,7 @@ model FeedbackBase {
 }
 
 model FeedbackResponse {
-  id             String        @id @default(uuid())
+  id             String       @id @default(uuid())
   rating         Int
   items          String[]
   comment        String
