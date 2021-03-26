@@ -13,7 +13,12 @@ export const ChangeLocale: FC = () => {
 
   return (
     <Menu>
-      <MenuButton as={Button} leftIcon={<FcGlobe />} rightIcon={<BiChevronDown />}>
+      <MenuButton
+        marginRight="1rem"
+        as={Button}
+        leftIcon={<FcGlobe />}
+        rightIcon={<BiChevronDown />}
+      >
         {t('Language')}
       </MenuButton>
       <MenuList>

@@ -4,6 +4,7 @@ import NextLink from 'next/link';
 import styled from 'styled-components';
 import { ChangeLocale } from './Header/ChangeLocale';
 import { Drawer } from './Drawer';
+import { Button } from '@chakra-ui/react';
 
 const Root = styled.header`
   padding: 1rem 0.5rem;
@@ -38,6 +39,11 @@ export const Header: FC = () => {
           </NextLink>
           <Drawer>
             <ChangeLocale />
+            {/* <NextLink href="/login" passHref>
+              <a href="/login" aria-label="login">
+                <Button colorScheme="teal">Login</Button>
+              </a>
+            </NextLink> */}
           </Drawer>
         </Flex>
       </Container>
