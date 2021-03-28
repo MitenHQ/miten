@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
 import Feedback from '../../components/Feedback';
+import { Layout } from '../../components/Layout';
 
 const FeedbackPage: FC = () => {
   const router = useRouter();
@@ -11,13 +11,9 @@ const FeedbackPage: FC = () => {
     : queryFeedbackUid;
 
   return (
-    <>
-      <Head>
-        <title>How was the meeting?</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Layout title="How was the meeting?">
       <Feedback feedbackUid={feedbackUid} />
-    </>
+    </Layout>
   );
 };
 
