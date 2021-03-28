@@ -5,16 +5,11 @@ import { Comments } from './Report/Comments';
 import { ReactionsChart } from './Report/ReactionsChart';
 import { CommentsChart } from './Report/CommentsChart';
 import { NoResponse } from './Report/NoResponse';
-import { Footer } from './Feedback/Footer';
 import { MoreDataForm } from './Report/MoreDataForm';
 import { useGetReportLazyQuery } from '../lib/graphql/hooks';
 
 const Root = styled.div`
   margin: auto;
-`;
-
-const FooterSection = styled(Footer)`
-  padding: 30px;
 `;
 
 type Props = {
@@ -58,7 +53,6 @@ const Report: FC<Props> = (props) => {
       ) : (
         <NoResponse feedbackLink={data.report.feedbackLink} />
       )}
-      <FooterSection />
     </Root>
   );
 };

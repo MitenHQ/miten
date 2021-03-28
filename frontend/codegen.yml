@@ -1,5 +1,18 @@
-schema: '../backend/**/*.gql'
-documents: ['components/**/*.gql', 'components/**/*.ts', 'components/**/*.tsx']
+schema:
+  - '../backend/**/*.gql'
+  - 'https://graphql.contentful.com/content/v1/spaces/uadfovbjsxa2/environments/master':
+      headers:
+        Authorization: 'Bearer A4-BZNh4q4xLfwCMNiS97YQK3Xj1H7SLcqz23oFJhnM'
+
+documents:
+  [
+    'components/**/*.gql',
+    'components/**/*.ts',
+    'components/**/*.tsx',
+    'pages/**/*.gql',
+    'pages/**/*.ts',
+    'pages/**/*.tsx',
+  ]
 hooks:
   afterAllFileWrite:
     - npx prettier --write

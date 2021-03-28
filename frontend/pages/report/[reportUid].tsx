@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
 import Report from '../../components/Report';
+import { Layout } from '../../components/Layout';
 
 const ReportPage: FC = () => {
   const router = useRouter();
@@ -9,13 +9,9 @@ const ReportPage: FC = () => {
   const reportUid = Array.isArray(queryReportUid) ? queryReportUid[0] : queryReportUid;
 
   return (
-    <>
-      <Head>
-        <title>Miten | Report</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Layout title={'Miten | Report'}>
       <Report reportUid={reportUid} />
-    </>
+    </Layout>
   );
 };
 
