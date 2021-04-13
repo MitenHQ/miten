@@ -6,6 +6,7 @@ import { PageContainer } from './Home/PageContainer';
 
 export type Props = {
   title?: string | null;
+  noWidthLimit?: boolean;
 };
 
 export const Layout: FC<Props> = (props) => {
@@ -49,7 +50,7 @@ export const Layout: FC<Props> = (props) => {
         <meta property="twitter:site" content="https://miten.io/" />
       </Head>
       <Header />
-      <PageContainer>{props.children}</PageContainer>
+      <PageContainer noWidthLimit={props.noWidthLimit}>{props.children}</PageContainer>
       <Footer />
     </>
   );
