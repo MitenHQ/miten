@@ -7,5 +7,8 @@ module.exports = {
     contentfulSpace: process.env.CONTENTFUL_SPACE_ID,
     contentfulAccessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
   },
+  images: {
+    domains: ['images.ctfassets.net'],
+  },
   i18n,
 };

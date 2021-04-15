@@ -9,7 +9,7 @@ const ReportPage: FC = () => {
   const reportUid = Array.isArray(queryReportUid) ? queryReportUid[0] : queryReportUid;
 
   return (
-    <Layout title={'Miten | Report'}>
+    <Layout title={'Miten | Report'} noWidthLimit>
       <Report reportUid={reportUid} />
     </Layout>
   );

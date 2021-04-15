@@ -4,7 +4,7 @@ import { Layout } from '../components/Layout';
 import { GetServerSideProps } from 'next';
 import { gql } from '@apollo/client';
 import { BlogPostCollection } from '../lib/graphql/hooks';
-import Link from 'next/link';
+import { Posts } from '../components/Posts';
 
 type Props = {
   blogPostCollection: BlogPostCollection;
@@ -13,11 +13,7 @@ type Props = {
 const BlogPage: FC<Props> = ({ blogPostCollection }) => {
   return (
     <Layout title={'Miten Blog'}>
-      {blogPostCollection.items.map((post, i) => (
-        <div key={post?.slug || i}>
-          <Link href={'/blog/' + post?.slug || './'}>{post?.title}</Link>
-        </div>
-      ))}
+      <Posts items={blogPostCollection.items} />
     </Layout>
   );
 };
@@ -35,6 +31,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
             slug
             title
             description
+            heroImage {
+              url
+              height
+              width
+              description
+            }
             # author {
             #   ... on Person {
             #     name

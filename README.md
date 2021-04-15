@@ -4,13 +4,11 @@ Improve your meetings by getting feedback
 
 [Work in progress]
 
-### How to run
+## How to run
 
-#### development
+## development
 
-(This will change, but for now:)
-
-First install the packages and init the environment variables:
+### Initilizing
 
 ```
 npm i
@@ -21,7 +19,15 @@ cd ../frontend
 npm i
 ```
 
-Run backend:
+If you need the pages with content to work, you need to provide the Contentful environemnt vars
+
+```
+cp ./frontend/.env.development ./frontend/.env.development.local
+```
+
+Then open the file and update `CONTENTFUL_SPACE_ID` and `CONTENTFUL_ACCESS_TOKEN`.
+
+### Run backend
 
 ```
 cd ./backend
@@ -29,7 +35,7 @@ docker-compose up -d
 npm start
 ```
 
-Run frontend:
+### Run frontend
 
 ```
 cd ./frontend

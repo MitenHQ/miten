@@ -5,12 +5,18 @@ import { Layout } from '../../components/Layout';
 import { GetServerSideProps } from 'next';
 import { gql } from '@apollo/client';
 import { Heading } from '@chakra-ui/layout';
-import ReactMarkdown from 'react-markdown';
 import { BlogPost } from '../../lib/graphql/hooks';
+import { Markdown } from '../../components/Markdown';
+import Image from 'next/image';
+import styled from 'styled-components';
 
 type Props = {
   post: BlogPost;
 };
+
+const ImageContainer = styled.div`
+  margin: 54px;
+`;
 
 const PostPage: FC<Props> = ({ post }) => {
   if (!post) {
@@ -19,10 +25,20 @@ const PostPage: FC<Props> = ({ post }) => {
 
   return (
     <Layout title={post.title}>
-      <Heading as="h3" size="l">
+      <Heading as="h2" size="xl">
         {post.title}
       </Heading>
-      <ReactMarkdown>{post.body || ''}</ReactMarkdown>
+      <ImageContainer>
+        <Image
+          width={post.heroImage?.width || '800'}
+          height={post.heroImage?.height || '600'}
+          layout="responsive"
+          src={post.heroImage?.url ?? ''}
+          alt={post.heroImage?.title ?? ''}
+        />
+        <div>{post.heroImage?.description}</div>
+      </ImageContainer>
+      <Markdown content={post.body} />
     </Layout>
   );
 };
@@ -40,9 +56,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
             title
             body
             description
-            # heroImage {
-            #   url
-            # }
+            heroImage {
+              url
+              height
+              width
+              description
+            }
             # author {
             #   ... on Person {
             #     name

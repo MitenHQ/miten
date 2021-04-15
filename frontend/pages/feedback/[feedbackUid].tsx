@@ -11,7 +11,7 @@ const FeedbackPage: FC = () => {
     : queryFeedbackUid;
 
   return (
-    <Layout title="How was the meeting?">
+    <Layout title="How was the meeting?" noWidthLimit>
       <Feedback feedbackUid={feedbackUid} />
     </Layout>
   );

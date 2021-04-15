@@ -34,6 +34,7 @@ const SubTitle = styled(animated.div)`
   font-size: 16px;
   color: #555;
   padding: 20px 10px 0 10px;
+  min-height: 300px;
 `;
 
 const ReactionsFormWrapper = styled.div`

@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import ReactMarkdown from 'react-markdown';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 import { defaultLocale } from '../components/utils/constants';
@@ -7,6 +6,7 @@ import { useTranslation } from 'next-i18next';
 import { Layout } from '../components/Layout';
 import { gql } from '@apollo/client';
 import { createContentfulGrapqlQLClient } from '../lib/contentfulClient';
+import { Markdown } from '../components/Markdown';
 
 type Props = {
   content: string;
@@ -17,7 +17,7 @@ const HomePage: FC<Props> = (props) => {
 
   return (
     <Layout title={t('Miten - Privacy Policy')}>
-      <ReactMarkdown>{props.content || ''}</ReactMarkdown>
+      <Markdown {...props} />
     </Layout>
   );
 };

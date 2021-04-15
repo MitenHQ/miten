@@ -6,6 +6,7 @@ const Root = styled.div`
   width: 100%;
   padding: 100px 30px;
   height: 100%;
+  min-height: 600px;
   text-align: center;
   background: linear-gradient(165deg, #c6ffdd99, #fbd78669, #f7797da6);
   font-size: 20px;
